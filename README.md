@@ -1,2 +1,8 @@
 # csc-425-project
-Any files associated with the creation of a React application, Task Manager
+Task Master Web Application
+## Team 6 Members
+- Luis Aguilar
+- Gavin Howell
+- Kapil Ramayanam
+- Connor Wilson
+- 5th Member
