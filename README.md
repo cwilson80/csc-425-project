@@ -2,7 +2,7 @@
 Task Master Web Application
 ## Team 6 Members
 - Luis Aguilar
+- Jackson Emerson
 - Gavin Howell
 - Kapil Ramayanam
 - Connor Wilson
-- 5th Member
