@@ -1,6 +1,7 @@
 import React from "react";
 import './NewTask.css';
 import Popup from "reactjs-popup";
+import TaskDatePicker from './TaskDatePicker.js';
 
 function NewTask() {
     return (
@@ -16,6 +17,7 @@ function NewTask() {
                                 <form>
                                     <input placeholder="Title"></input>
                                     <input placeholder="Desciprtion"></input>
+                                    <TaskDatePicker />
                                 </form>
                             </div>
                             <div>
