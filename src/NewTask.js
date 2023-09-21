@@ -5,7 +5,6 @@ import Popup from "reactjs-popup";
 function NewTask() {
     return (
         <div>
-            <h4>Popup - GeeksforGeeks</h4>
             <Popup trigger=
                 {<button> Click to open modal </button>}
                 modal nested>
@@ -13,12 +12,16 @@ function NewTask() {
                     close => (
                         <div className='modal'>
                             <div className='content'>
-                                Welcome to GFG!!!
+                                <button id="dueDate">Date</button>
+                                <form>
+                                    <input placeholder="Title"></input>
+                                    <input placeholder="Desciprtion"></input>
+                                </form>
                             </div>
                             <div>
-                                <button onClick=
+                                <button type="submit" onClick=
                                     {() => close()}>
-                                        Close modal
+                                        Add Task
                                 </button>
                             </div>
                         </div>

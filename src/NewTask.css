@@ -1,6 +1,7 @@
 form {
     align-items: center;
     padding: 10px;
+    display: flex;
 }
 
 input {
@@ -8,5 +9,8 @@ input {
 }
 
 .modal {
-    background-color: grey;
+    background-color: rgb(189, 189, 189);
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
 }
