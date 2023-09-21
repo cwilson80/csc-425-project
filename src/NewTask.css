@@ -6,3 +6,7 @@ form {
 input {
     padding: 5px;
 }
+
+.modal {
+    background-color: grey;
+}
