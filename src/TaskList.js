@@ -32,8 +32,8 @@ const handleClick = () => {
             </div>
             <h2>Tasks</h2>
             <hr class="solid"></hr>
-            <input type="checkbox"/>
-            <label>Place Holder for Task</label> 
+            <input type="checkbox" />
+            <label>Place Holder for Task</label>
             <button>Edit</button>
             <button>Delete</button>
         </>

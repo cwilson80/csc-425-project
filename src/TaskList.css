@@ -10,6 +10,15 @@ h1 {
     color: white;
 }
 
-hr {
+hr,h2 {
+    margin: 12px;
+}
+
+button {
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+input {
     margin: 12px;
 }
