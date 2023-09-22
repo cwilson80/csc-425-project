@@ -1,15 +1,38 @@
 import './TaskList.css';
 import React from 'react';
+import { useState } from "react";
+import "./App.css"
 
 function TaskList() {
+
+const [task, setTasks] = useState("")
+const [taskLists, setTaskList] = useState([])
+
+const handleClick = () => {
+    const id = taskLists.length + 1;
+    setTaskList((prev) => [
+      ...prev,
+      {
+        id: id,
+        task: task,
+        complete: false,
+      }
+    ]);
+    setTasks("");
+  };
+
+
+
     return (
-        <div>
+        <>
             <div className='AddButton'>
                 <h1>Task Manager</h1>
-                <button type="button">add</button>
+                <input value={task} onInput={(e) =>setTasks(e.target.value)} />
+                <button type="button" onClick={() => handleClick()}>add</button>
+                
             </div>
             <hr class="solid"></hr>
-        </div>
+        </>
         
     );
 }
