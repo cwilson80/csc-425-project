@@ -1,26 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import './NewTask.css';
 import Popup from "reactjs-popup";
 import TaskDatePicker from './TaskDatePicker.js';
 
 function NewTask() {
+
     return (
         <div>
             <Popup trigger=
-                {<button> Click to open modal </button>}
+                {<button> Add Task </button>}
                 modal nested>
                 {
                     close => (
-                        <div className='modal'>
-                            <div className='content'>
-                                <button id="dueDate">Date</button>
-                                <form>
-                                    <input placeholder="Title"></input>
-                                    <input placeholder="Desciprtion"></input>
-                                    <TaskDatePicker />
-                                </form>
+                        <div class='modal'>
+                            <div class='content'>
+                                <input id="title" placeholder="Title"></input>
+                                <textarea id="desc" placeholder="Desciprtion"></textarea>
                             </div>
                             <div>
+                                <TaskDatePicker />
                                 <button type="submit" onClick=
                                     {() => close()}>
                                         Add Task
