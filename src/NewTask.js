@@ -9,6 +9,7 @@ const NewTask = ({onTaskAdd}) => {
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState(Date);
 
+      
     const handleAddTask = () => {
         if(title && description && dueDate) {
             onTaskAdd({title, description, dueDate});
@@ -18,11 +19,15 @@ const NewTask = ({onTaskAdd}) => {
         }
     }
 
+    const close = () => {
+        handleAddTask();
+        close();
+    }
+
     return (
         <div>
             <Popup trigger=
-                {<button> Add Task </button>}
-                modal nested>
+                {<button> Add Task </button>}>
                 {
                     close => (
                         <div class='modal'>
@@ -39,11 +44,11 @@ const NewTask = ({onTaskAdd}) => {
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         />
+                                    <TaskDatePicker />
                                 </div>
                             <div>
-                                <TaskDatePicker />
-                                <button type="submit" onClick=
-                                    {handleAddTask}>
+                                <button trigger className="buton" type="submit" onClick=
+                                    {close}>
                                         Add Task
                                 </button>
                             </div>
