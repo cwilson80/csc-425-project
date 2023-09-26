@@ -3,7 +3,7 @@
     padding-left: 12px;
     padding-top: 12px;
     padding-bottom: 12px;
-    background-color: rgb(170,170,170);
+    background-color: #0000ff;
 }
 
 h1 {
@@ -11,6 +11,7 @@ h1 {
 }
 
 hr,h2 {
+    color: white;
     margin: 12px;
 }
 
@@ -21,4 +22,12 @@ button {
 
 input {
     margin: 12px;
+}
+
+.checkbox[type=checkbox]{
+    accent-color: green;
+}
+
+.select{
+    color: white;
 }

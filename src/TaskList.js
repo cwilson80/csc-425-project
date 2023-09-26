@@ -2,6 +2,7 @@ import './TaskList.css';
 import React from 'react';
 import { useState } from "react";
 import "./App.css"
+import Task from './Task.js';
 
 function TaskList() {
 
@@ -32,10 +33,10 @@ const handleClick = () => {
             </div>
             <h2>Tasks</h2>
             <hr class="solid"></hr>
-            <input type="checkbox" />
-            <label>Place Holder for Task</label>
-            <button>Edit</button>
-            <button>Delete</button>
+            <input type="checkbox" className="checkbox"/>
+            <label className="select">Select All</label>
+            <Task></Task>
+            <Task></Task>
         </>
         
     );
