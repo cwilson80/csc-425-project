@@ -3,20 +3,19 @@ import './NewTask.css';
 import Popup from "reactjs-popup";
 import TaskDatePicker from './TaskDatePicker.js';
 
-function NewTask() {
-
-    const [formData, setFormData] = useState({title: "", description: ""});
+const NewTask = ({onTaskAdd}) => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState('');
+    const [dueDate, setDueDate] = useState(Date);
 
-    const handleChange = (e) => {
-        setFormData(e.target.value);
-   }
-
-    const handleSubmit = (e) => {
-        alert(`Title: ${title}`);
+    const handleAddTask = () => {
+        if(title && description && dueDate) {
+            onTaskAdd({title, description, dueDate});
+            setTitle("");
+            setDescription("");
+            setDueDate(Date);
+        }
     }
 
     return (
@@ -27,7 +26,6 @@ function NewTask() {
                 {
                     close => (
                         <div class='modal'>
-                            <form onSubmit={handleSubmit}>
                                 <div class='content'>
                                     <input 
                                         id="title" 
@@ -38,15 +36,14 @@ function NewTask() {
                                     <textarea 
                                         id="desc" 
                                         placeholder="Description" 
-                                        value={formData.description}
-                                        onChange={handleChange}
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
                                         />
                                 </div>
-                                </form>
                             <div>
                                 <TaskDatePicker />
                                 <button type="submit" onClick=
-                                    {handleSubmit}>
+                                    {handleAddTask}>
                                         Add Task
                                 </button>
                             </div>
