@@ -7,12 +7,16 @@ function NewTask() {
 
     const [formData, setFormData] = useState({title: "", description: ""});
 
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [dueDate, setDueDate] = useState('');
+
     const handleChange = (e) => {
         setFormData(e.target.value);
    }
 
     const handleSubmit = (e) => {
-        alert(`Title: ${formData.title}`);
+        alert(`Title: ${title}`);
     }
 
     return (
@@ -28,8 +32,8 @@ function NewTask() {
                                     <input 
                                         id="title" 
                                         placeholder="Title" 
-                                        value={formData.title}
-                                        onChange={handleChange}    
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
                                         />
                                     <textarea 
                                         id="desc" 
