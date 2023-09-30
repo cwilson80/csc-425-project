@@ -3,13 +3,14 @@ import "./Task.css"
 
 function Task() {
     return (
-        <div className = "tasks">
+        <form className = "tasks">
             <input type="checkbox" />
-            <label>Place Holder for Task</label>
+            <label className='TaskName'>Place Holder for Task</label>
+            <label className='Description'> desciption of task </label>
             <button>Edit</button>
             <button>Delete</button>
             <br></br>
-        </div>
+        </form>
     );
 }
 
