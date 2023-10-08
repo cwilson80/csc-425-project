@@ -48,3 +48,9 @@ textarea:focus, input:focus{
     background-color: rgb(230, 230, 230);
 }
 
+button.addTaskButton {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+

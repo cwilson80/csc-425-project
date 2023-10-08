@@ -7,7 +7,7 @@ const NewTask = ({onTaskAdd}) => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState(Date);
+    const [dueDate, setDueDate] = useState(new Date());
 
       
     const handleAddTask = () => {
@@ -15,8 +15,12 @@ const NewTask = ({onTaskAdd}) => {
             onTaskAdd({title, description, dueDate});
             setTitle("");
             setDescription("");
-            setDueDate(Date);
+            setDueDate(new Date());
         }
+    }
+
+    const handleClosingDatePicker = (date) => {
+        setDueDate(date);
     }
 
     const close = () => {
@@ -26,8 +30,7 @@ const NewTask = ({onTaskAdd}) => {
 
     return (
         <div>
-            <Popup trigger=
-                {<button> Add Task </button>}>
+            <Popup trigger= {<button className='addTaskButton'> Add Task </button>}>
                 {
                     close => (
                         <div class='modal'>
@@ -44,11 +47,15 @@ const NewTask = ({onTaskAdd}) => {
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         />
-                                    <TaskDatePicker />
+                                    <TaskDatePicker onClosingDatePicker={handleClosingDatePicker} startDate={dueDate}/>
                                 </div>
                             <div>
                                 <button trigger className="buton" type="submit" onClick=
                                     {close}>
+                                        Close Popup
+                                </button>
+                                <button trigger className="buton" type="submit" onClick=
+                                    {handleAddTask}>
                                         Add Task
                                 </button>
                             </div>

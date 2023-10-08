@@ -29,7 +29,8 @@ function App() {
 
   return (
     <div className="App">
-      <NewTask onTaskAdd={handleAddTask}/>
+      {/* <NewTask onTaskAdd={handleAddTask}/> */}
+      <TaskList />
     </div>
   );
 }
