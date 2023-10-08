@@ -40,7 +40,6 @@ function TaskList() {
               <h1>Task Manager</h1>
           </div>
           <h2>Tasks</h2>
-          <button type="button" onClick={() => handleClick()}>Add</button>
           <hr class="solid"></hr>
           <input type="checkbox" className="checkbox"/>
           <label className="select">Select All</label>
