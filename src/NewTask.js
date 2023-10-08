@@ -3,7 +3,7 @@ import './NewTask.css';
 import Popup from "reactjs-popup";
 import TaskDatePicker from './TaskDatePicker.js';
 
-const NewTask = ({onTaskAdd}) => {
+const NewTask = ({onTaskAdd}, {id}) => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -12,7 +12,7 @@ const NewTask = ({onTaskAdd}) => {
       
     const handleAddTask = () => {
         if(title && description && dueDate) {
-            onTaskAdd({title, description, dueDate});
+            onTaskAdd({title, description, dueDate}, id);
             setTitle("");
             setDescription("");
             setDueDate(new Date());
@@ -30,7 +30,7 @@ const NewTask = ({onTaskAdd}) => {
 
     return (
         <div>
-            <Popup trigger= {<button className='addTaskButton'> Add Task </button>}>
+            <Popup trigger= {<button className='addTaskButton'> New Task </button>}>
                 {
                     close => (
                         <div class='modal'>
@@ -56,7 +56,7 @@ const NewTask = ({onTaskAdd}) => {
                                 </button>
                                 <button trigger className="buton" type="submit" onClick=
                                     {handleAddTask}>
-                                        Add Task
+                                        New Task
                                 </button>
                             </div>
                         </div>

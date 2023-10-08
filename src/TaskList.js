@@ -8,37 +8,44 @@ import NewTask from './NewTask'
 function TaskList() {
 
   // Separate State Variables for Each Input
-  const [taskName, setTaskName] = useState("");
-  const [taskDesc, setTaskDesc] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [globalID, setGlobalID] = useState(0);
 
   // Store taskItem objects instead of plain tasks.
   const [taskLists, setTaskList] = useState([])
 
   class taskItem {
-      constructor(taskName, taskDesc, dueDate) {
+      constructor(taskName, taskDesc, dueDate, id) {
           this.taskName = taskName;
           this.taskDesc = taskDesc;
           this.dueDate = dueDate;
-          this.id = taskLists.length + 1;
+          this.id = id;
           this.completed = false
       }
   }
 
-  const handleClick = () => {
-      // Create new taskItem
-      const newTask = new taskItem(taskName, taskDesc, dueDate);
-      // Add the new taskItem to the taskLists
-      setTaskList((prev) => [...prev, newTask]);
+  const handleEdit = (newTask, id) => {
+    let i = 0;
+        for(i = 0; i < taskLists.length; i++) {
+            if(taskLists[i].id === id) {
+                taskLists[i].taskName = newTask.title;
+                taskLists[i].taskDesc = newTask.description
+                taskLists[i].dueDate = newTask.dueDate
+            }
+        }
+  }
 
-      // Clear the input fields
-      setTaskName("");
-      setTaskDesc("");
-      setDueDate("");
-  };
+  const handleDelete = (id) => {
+    let i = 0;
+    for(i = 0; i < taskLists.length; i++) {
+        if(taskLists[i].id === id) {
+            taskLists.splice(i, i);
+        }
+    }
+  }
 
-  const handleAddTask = (newTask) => {
-    const task = new taskItem(newTask.title, newTask.description, newTask.dueDate)
+  const handleAddTask = (newTask, id) => {
+    const task = new taskItem(newTask.title, newTask.description, newTask.dueDate, globalID);
+    setGlobalID(globalID+1);
     setTaskList((prev) => [...prev, task]);
   }
 
@@ -47,13 +54,13 @@ function TaskList() {
           <div className='AddButton'>
               <h1>Task Manager</h1>
           </div>
-          <h2>Tasks <NewTask onTaskAdd={handleAddTask}/></h2>
+          <h2>Tasks <NewTask onTaskAdd={handleAddTask} id={-1}/></h2>
           <hr class="solid"></hr>
           <input type="checkbox" className="checkbox"/>
           <label className="select">Select All</label>
           {/* Dynamically render tasks */}
           {taskLists.map((task, index) => (
-              <Task key={index} task={task} />
+              <Task key={index} task={task} onEdit={handleEdit} onDelete={handleDelete}/>
           ))}
       </>
   );
