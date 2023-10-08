@@ -8,8 +8,8 @@ function Task() {
             <label className='TaskName'>Place Holder for Task</label>
             <label className='Description'> desciption of task </label>
             <div className='container'>
-                <button>Edit</button>
-                <button>Delete</button>
+                <button className="btn" id='edit'>Edit</button>
+                <button className="btn" id='delete'>Delete</button>
             </div>
             <br></br>
         </form>
