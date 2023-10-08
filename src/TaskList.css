@@ -1,0 +1,33 @@
+.AddButton {
+    text-align: left;
+    padding-left: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #0000ff;
+}
+
+h1 {
+    color: white;
+}
+
+hr,h2 {
+    color: white;
+    margin: 12px;
+}
+
+button {
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+input {
+    margin: 12px;
+}
+
+.checkbox[type=checkbox]{
+    accent-color: green;
+}
+
+.select{
+    color: white;
+}
