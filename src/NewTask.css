@@ -1,0 +1,50 @@
+form {
+    align-items: center;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+input {
+    padding: 5px;
+    font-size: 25px;
+}
+
+textarea {
+    padding: 5px;
+    resize: none;
+    height: 300px;
+    font-size: 13px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.modal {
+    background-color: rgb(230, 230, 230);
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal {
+    padding: 10px;
+}
+
+#title {
+    border: none;
+    background-color: rgb(230, 230, 230);
+}
+
+#desc {
+    border: none;
+    background-color: rgb(230, 230, 230);
+}
+
