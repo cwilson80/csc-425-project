@@ -19,7 +19,7 @@ function TaskList() {
       constructor(taskName, taskDesc, dueDate) {
           this.taskName = taskName;
           this.taskDesc = taskDesc;
-          this.dueDate = dueDate.toString();
+          this.dueDate = dueDate;
           this.id = taskLists.length + 1;
           this.completed = false
       }
