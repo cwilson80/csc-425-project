@@ -1,19 +1,17 @@
 import React from 'react';
 import "./Task.css"
-
-function Task() {
-    return (
+    const Task = ({ task, onEdit, onDelete }) => (
         <form className = "tasks">
-            <input type="checkbox" />
-            <label className='TaskName'>Place Holder for Task</label>
-            <label className='Description'> desciption of task </label>
+            <p type="checkbox" />
+            <p className='TaskName'>{task.title}</p>
+            <p className='Description'>{task.description}</p>
+            <p>Due Date: {task.dueDate}</p>
             <div className='container'>
-                <button className="btn" id='edit'>Edit</button>
-                <button className="btn" id='delete'>Delete</button>
+                <button onClick={() => onEdit(task)} className="btn" id='edit'>Edit</button>
+                <button onClick={() => onDelete(task.id)} className="btn" id='delete'>Delete</button>
             </div>
             <br></br>
         </form>
     );
-}
 
 export default Task;
