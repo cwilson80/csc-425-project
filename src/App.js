@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
 import TaskList from './TaskList';
-import NewTask from './NewTask';
 
 function App() {
 
@@ -15,7 +14,6 @@ function App() {
 
   return (
     <div className="App">
-      <NewTask onTaskAdd={handleAddTask} />
       <TaskList />
     </div>
   );
