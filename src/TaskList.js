@@ -50,10 +50,9 @@ function TaskList() {
           <div className='AddButton'>
               <h1>Task Manager</h1>
           </div>
-          <h2>Tasks <NewTask onTaskAdd={handleAddTask} id={-1}/></h2>
+          <h2>Tasks</h2>
           <hr class="solid"></hr>
-          <input type="checkbox" className="checkbox"/>
-          <label className="select">Select All</label>
+          <NewTask onTaskAdd={handleAddTask} id={-1}/>
           {/* Dynamically render tasks */}
           {taskLists.map((task) => (
             <li key={task.id}>
@@ -61,7 +60,8 @@ function TaskList() {
                 <span>{task.taskName+": "}</span>
                 <span>{task.taskDesc+" "}</span>
                 <span>{task.dueDate.toLocaleDateString("en-US")}</span>
-                <button type="button" onClick={() => handleDelete(task.id)}> Delete </button>
+                <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
+                <button className="btn" id='edit' type="button" onClick={() => {}}> Edit </button>
             </li>
           ))}
       </>

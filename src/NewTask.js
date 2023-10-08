@@ -30,7 +30,7 @@ const NewTask = ({onTaskAdd}, {id}) => {
 
     return (
         <div>
-            <Popup trigger= {<button className='addTaskButton'> New Task </button>}>
+            <Popup position="right" trigger= {<button className='btn'> New Task </button>}>
                 {
                     close => (
                         <div class='modal'>

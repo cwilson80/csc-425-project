@@ -54,3 +54,16 @@ button.addTaskButton {
     transform: translateX(-50%);
 }
 
+.btn {
+    color: black;
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    transition: 0.3s;
+}
+
+
+.btn:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
