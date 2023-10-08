@@ -11,7 +11,6 @@ import NewTask from './NewTask';
             <div className='container'>
                 <button onClick={() => onEdit(task)} className="btn" id='edit'>Edit</button>
                 <button onClick={() => onDelete(task.id)} className="btn" id='delete'>Delete</button>
-                <NewTask onTaskAdd={onEdit} id={task.id}/>
             </div>
             <br></br>
         </form>
