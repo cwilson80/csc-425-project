@@ -34,13 +34,9 @@ function TaskList() {
         }
   }
 
-  const handleDelete = (id) => {
-    let i = 0;
-    for(i = 0; i < taskLists.length; i++) {
-        if(taskLists[i].id === id) {
-            taskLists.splice(i, i);
-        }
-    }
+  function handleDelete(id) {
+    const newTaskList = taskLists.filter((item) => item.id !== id);
+    setTaskList(newTaskList);
   }
 
   const handleAddTask = (newTask, id) => {
@@ -59,8 +55,14 @@ function TaskList() {
           <input type="checkbox" className="checkbox"/>
           <label className="select">Select All</label>
           {/* Dynamically render tasks */}
-          {taskLists.map((task, index) => (
-              <Task key={index} task={task} onEdit={handleEdit} onDelete={handleDelete}/>
+          {taskLists.map((task) => (
+            <li key={task.id}>
+                <input type="checkbox"/>
+                <span>{task.taskName}</span>
+                <span>{task.taskDesc}</span>
+                <span>{task.dueDate.toString()}</span>
+                <button type="button" onClick={() => handleDelete(task.id)}> Delete </button>
+            </li>
           ))}
       </>
   );
