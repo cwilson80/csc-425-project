@@ -3,8 +3,8 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function TaskDatePicker ({onClosingDatePicker}, {dueDate}) {
-  const [startDate, setStartDate] = useState(dueDate);
+function TaskDatePicker ({onClosingDatePicker}) {
+  const [startDate, setStartDate] = useState(new Date());
   const DateButton = React.forwardRef(({ value, onClick }, ref) => (
     <button onClick={onClick} ref={ref}>
       {value}
