@@ -13,6 +13,10 @@ function TaskList() {
   // Store taskItem objects instead of plain tasks.
   const [taskLists, setTaskList] = useState([])
 
+  const [newTaskName, setNewTaskName] = useState("");
+  const [newTaskDesc, setNewTaskDesc] = useState("");
+  
+
   class taskItem {
       constructor(taskName, taskDesc, dueDate, id) {
           this.taskName = taskName;
@@ -23,15 +27,8 @@ function TaskList() {
       }
   }
 
-  const handleEdit = (newTask, id) => {
-    let i = 0;
-        for(i = 0; i < taskLists.length; i++) {
-            if(taskLists[i].id === id) {
-                taskLists[i].taskName = newTask.title;
-                taskLists[i].taskDesc = newTask.description
-                taskLists[i].dueDate = newTask.dueDate
-            }
-        }
+  const handleEdit = () => {
+    document.getElementById("editDiv").style.display = "block";
   }
 
   function handleDelete(id) {
@@ -43,6 +40,20 @@ function TaskList() {
     const task = new taskItem(newTask.title, newTask.description, newTask.dueDate, globalID);
     setGlobalID(globalID+1);
     setTaskList((prev) => [...prev, task]);
+  }
+
+  const Change = (id)=>{
+    let i = 0;
+    for(i = 0; i < taskLists.length; i++) {
+        if(taskLists[i].id === id) {
+            taskLists[i].taskName = newTaskName;
+            taskLists[i].taskDesc = newTaskDesc;
+            taskLists[i].dueDate = new Date();
+        }
+    }
+    setNewTaskName("");
+    setNewTaskDesc("");
+    document.getElementById("editDiv").style.display = "none";
   }
 
   return (
@@ -61,7 +72,24 @@ function TaskList() {
                 <span>{task.taskDesc+" "}</span>
                 <span>{task.dueDate.toLocaleDateString("en-US")}</span>
                 <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
-                <button className="btn" id='edit' type="button" onClick={() => {}}> Edit </button>
+                <button className="btn" id='edit' type="button" onClick={() => handleEdit()}> Edit </button>
+                <div id="editDiv">
+                <input
+          type="text"
+          id="newTaskname"
+          placeholder="Enter task name to edit"
+          value={newTaskName}
+          onChange={(e) => setNewTaskName(e.target.value)}
+        />
+        <input
+          type="text"
+          id="newTaskdesc"
+          placeholder="Enter task description"
+          value={newTaskDesc}
+          onChange={(e) => setNewTaskDesc(e.target.value)}
+        />
+                  <button onClick={()=>Change(task.id)}>Change</button>
+                </div>
             </li>
           ))}
       </>

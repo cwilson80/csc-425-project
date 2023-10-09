@@ -51,11 +51,10 @@ const NewTask = ({onTaskAdd}, {id}) => {
                                 </div>
                             <div>
                                 <button trigger className="buton" type="submit" onClick=
-                                    {close}>
-                                        Close Popup
-                                </button>
-                                <button trigger className="buton" type="submit" onClick=
-                                    {handleAddTask}>
+                                    {() => {
+                                        handleAddTask();
+                                        close();
+                                    }}>
                                         New Task
                                 </button>
                             </div>
