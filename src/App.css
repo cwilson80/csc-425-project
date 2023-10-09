@@ -1,8 +1,8 @@
 .App {
-  background-color: #0066ff
+  background-color: #ffffff
 }
 
-html {background-color: aliceblue;} 
+html {background-color: rgb(255, 255, 255);} 
 
 .App-header {
   background-color: #282c34;
@@ -12,7 +12,7 @@ html {background-color: aliceblue;}
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #61dafb;
+  color: #ffffff;
 }
 
 

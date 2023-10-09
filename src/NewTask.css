@@ -24,8 +24,6 @@ textarea:focus, input:focus{
 
 .modal {
     background-color: rgb(230, 230, 230);
-    width: 400px;
-    height: 400px;
     border-radius: 10px;
 }
 
@@ -48,22 +46,32 @@ textarea:focus, input:focus{
     background-color: rgb(230, 230, 230);
 }
 
-button.addTaskButton {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
 
 .btn {
-    color: black;
+    color: rgb(255, 255, 255);
     padding: 8px;
     border-radius: 10px;
     border: none;
     transition: 0.3s;
+    background-color: rgb(77, 154, 255);
+    margin-top: 5px;
 }
 
 
 .btn:hover {
     opacity: 0.6;
+    cursor: pointer;
+}
+
+#newTask {
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgb(77, 154, 255);
+    color: white;
+}
+
+#newTask:hover {
+    opacity: 0.5;
     cursor: pointer;
 }

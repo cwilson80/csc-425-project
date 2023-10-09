@@ -68,8 +68,8 @@ function TaskList() {
           {taskLists.map((task) => (
             <li key={task.id}>
                 <input type="checkbox"/>
-                <span>{task.taskName+": "}</span>
-                <span>{task.taskDesc+" "}</span>
+                <span id='title'>{task.taskName+" "}</span>
+                <span id='desc'>{task.taskDesc+" "}</span>
                 <span>{task.dueDate.toLocaleDateString("en-US")}</span>
                 <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
                 <button className="btn" id='edit' type="button" onClick={() => handleEdit()}> Edit </button>

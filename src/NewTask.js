@@ -30,7 +30,7 @@ const NewTask = ({onTaskAdd}, {id}) => {
 
     return (
         <div>
-            <Popup position="right" trigger= {<button className='btn'> New Task </button>}>
+            <Popup position="right" trigger= {<button id="newTask"> New Task </button>}>
                 {
                     close => (
                         <div class='modal'>
@@ -50,7 +50,7 @@ const NewTask = ({onTaskAdd}, {id}) => {
                                     <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
                                 </div>
                             <div>
-                                <button trigger className="buton" type="submit" onClick=
+                                <button trigger className="btn" type="submit" onClick=
                                     {() => {
                                         handleAddTask();
                                         close();
