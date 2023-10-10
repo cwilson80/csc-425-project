@@ -4,28 +4,31 @@ import Popup from "reactjs-popup";
 import TaskDatePicker from './TaskDatePicker.js';
 
 const NewTask = ({onTaskAdd}) => {
-
+    // Information about the task to be added
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState(new Date());
 
-      
+    /**
+     * Passes the information gained from the user to the function passed in from the parent.
+     * Resets the temporary storage afterwards.
+     */
     const handleAddTask = () => {
         if(title && description && dueDate) {
             onTaskAdd({title, description, dueDate});
-            setTitle("");
-            setDescription("");
-            setDueDate(new Date());
         }
+        setTitle("");
+        setDescription("");
+        setDueDate(new Date());
     }
 
+    /**
+     * Function to handle recieving the date from the date picker element
+     * 
+     * @param {*} date The date to be set in the new task
+     */
     const handleClosingDatePicker = (date) => {
         setDueDate(date);
-    }
-
-    const close = () => {
-        handleAddTask();
-        close();
     }
 
     return (
