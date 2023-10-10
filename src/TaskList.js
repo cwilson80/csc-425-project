@@ -1,8 +1,9 @@
 import './TaskList.css';
 import React from 'react';
 import { useState } from "react";
-import "./App.css"
-import NewTask from './NewTask'
+import "./App.css";
+import NewTask from './NewTask';
+import TaskDatePicker from './TaskDatePicker';
 
 function TaskList() {
 
@@ -15,6 +16,7 @@ function TaskList() {
   // Temp storage of task information for modifying tasks
   const [newTaskName, setNewTaskName] = useState("");
   const [newTaskDesc, setNewTaskDesc] = useState("");
+  const [newTaskDate, setNewTaskDate] = useState(new Date());
   const [presentId, setPresentId] = useState("");
 
   // definition of a task
@@ -71,13 +73,23 @@ function TaskList() {
       if(taskLists[i].id === id) {
         taskLists[i].taskName = newTaskName;
         taskLists[i].taskDesc = newTaskDesc;
-        taskLists[i].dueDate = new Date();
+        taskLists[i].dueDate = newTaskDate;
       }
     }
     setNewTaskName("");
     setNewTaskDesc("");
+    setNewTaskDate(new Date());
     setPresentId("");
     document.getElementById("editDiv").style.display = "none";
+  }
+
+  /**
+   * Function to handle recieving the date from the date picker element
+   * 
+   * @param {*} date The date to be set in the new task
+   */
+  const handleClosingDatePicker = (date) => {
+    setNewTaskDate(date);
   }
 
   return (
@@ -120,6 +132,7 @@ function TaskList() {
           value={newTaskDesc}
           onChange={(e) => setNewTaskDesc(e.target.value)}
         />
+        <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
 
         {/* Button to save user modifications */}
         <button onClick={()=>Change(presentId)}>Change</button>
