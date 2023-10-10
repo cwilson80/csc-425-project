@@ -16,6 +16,7 @@ function TaskList() {
   const [newTaskName, setNewTaskName] = useState("");
   const [newTaskDesc, setNewTaskDesc] = useState("");
   
+  const [presentId, setPresentId] = useState("");
 
   class taskItem {
       constructor(taskName, taskDesc, dueDate, id) {
@@ -27,8 +28,9 @@ function TaskList() {
       }
   }
 
-  const handleEdit = () => {
+  const handleEdit = (id) => {
     document.getElementById("editDiv").style.display = "block";
+    setPresentId(id);
   }
 
   function handleDelete(id) {
@@ -53,6 +55,7 @@ function TaskList() {
     }
     setNewTaskName("");
     setNewTaskDesc("");
+    setPresentId("");
     document.getElementById("editDiv").style.display = "none";
   }
 
@@ -68,12 +71,15 @@ function TaskList() {
           {taskLists.map((task) => (
             <li key={task.id}>
                 <input type="checkbox"/>
-                <span id='title'>{task.taskName+" "}</span>
-                <span id='desc'>{task.taskDesc+" "}</span>
+                <span>{task.taskName+": "}</span>
+                <span>{task.taskDesc+" "}</span>
                 <span>{task.dueDate.toLocaleDateString("en-US")}</span>
                 <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
-                <button className="btn" id='edit' type="button" onClick={() => handleEdit()}> Edit </button>
-                <div id="editDiv">
+                <button className="btn" id='edit' type="button" onClick={() => handleEdit(task.id)}> Edit </button>
+                
+            </li>
+          ))}
+          <div id="editDiv">
                 <input
           type="text"
           id="newTaskname"
@@ -88,10 +94,8 @@ function TaskList() {
           value={newTaskDesc}
           onChange={(e) => setNewTaskDesc(e.target.value)}
         />
-                  <button onClick={()=>Change(task.id)}>Change</button>
+                  <button onClick={()=>Change(presentId)}>Change</button>
                 </div>
-            </li>
-          ))}
       </>
   );
 }
