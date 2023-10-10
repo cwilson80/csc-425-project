@@ -3,7 +3,7 @@ import './NewTask.css';
 import Popup from "reactjs-popup";
 import TaskDatePicker from './TaskDatePicker.js';
 
-const NewTask = ({onTaskAdd}, {id}) => {
+const NewTask = ({onTaskAdd}) => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -12,7 +12,7 @@ const NewTask = ({onTaskAdd}, {id}) => {
       
     const handleAddTask = () => {
         if(title && description && dueDate) {
-            onTaskAdd({title, description, dueDate}, id);
+            onTaskAdd({title, description, dueDate});
             setTitle("");
             setDescription("");
             setDueDate(new Date());
