@@ -3,8 +3,8 @@ import React from 'react';
 import { useState } from "react";
 import "./App.css";
 import NewTask from './NewTask';
-import TaskDatePicker from './TaskDatePicker';
 import Popup from 'reactjs-popup';
+import TaskDatePicker from './TaskDatePicker';
 
 function TaskList() {
 
@@ -12,7 +12,7 @@ function TaskList() {
   const [globalID, setGlobalID] = useState(0);
 
   // Store taskItem objects instead of plain tasks.
-  const [taskLists, setTaskList] = useState([])
+  const [taskLists, setTaskList] = useState([]);
 
   // Temp storage of task information for modifying tasks
   const [newTaskName, setNewTaskName] = useState("");
@@ -35,6 +35,12 @@ function TaskList() {
    * 
    * @param {*} id The id of the task that's going to be edited
    */
+
+
+
+
+
+
   const handleEdit = (id) => {
     let i = 0;
     for(i = 0; i < taskLists.length; i++) {
@@ -70,9 +76,7 @@ function TaskList() {
     setTaskList((prev) => [...prev, task]);
   }
 
-  const handleClosingDatePicker = (date) => {
-    setNewTaskDate(date);
-  }
+
 
   return (
     <>
@@ -80,9 +84,6 @@ function TaskList() {
       <div className='AddButton'>
         <h1>Task Manager</h1>
       </div>
-      <h2>Tasks</h2>
-      <hr class="solid"></hr>
-
       {/* Button to add a new task to the list */}
       <NewTask onTaskAdd={handleAddTask}/>
       
@@ -90,10 +91,10 @@ function TaskList() {
       {taskLists.map((task) => (
         <li key={task.id}>
           <input type="checkbox"/>
-          <span>{task.taskName+": "}</span>
-          <span>{task.taskDesc+" "}</span>
-          <span>{task.dueDate.toLocaleDateString("en-US")}</span>
+          <span>{task.taskName+" "}</span>
+          <span id='desc'>{task.taskDesc+" "}</span>
           <div id='right'>
+            <span id='date'>{task.dueDate.toDateString("en-US")}</span>
             <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
             <Popup modal nested position="right" trigger= {<button id="edit" class="btn"> Edit </button>}>
               {
@@ -113,9 +114,10 @@ function TaskList() {
                                       />
                               </div>
                           <div>
+                          {/*<TaskDatePicker defaultValue={task.dueDate} onClosingDatePicker={(date) => setNewTaskDate(date)}/>*/}
                           <button trigger id="edit" className="btn" type="button" onClick={() => 
                             {
-                              handleEdit(task.id)
+                              handleEdit(task.id);
                               close();
                               }
                             }

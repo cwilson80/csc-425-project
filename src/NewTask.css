@@ -30,7 +30,7 @@ textarea:focus, input:focus{
 }
 
 .modal {
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(238, 238, 238);
     border-radius: 10px;
 }
 
@@ -45,12 +45,12 @@ textarea:focus, input:focus{
 
 #title {
     border: none;
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(238, 238, 238);
 }
 
 #desc {
     border: none;
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(238, 238, 238);
 }
 
 
