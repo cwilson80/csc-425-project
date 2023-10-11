@@ -85,6 +85,11 @@ function TaskList() {
     setNewTaskDate(date);
   }
 
+  const initializeNewValues = (name, desc, date) => {
+    setNewTaskName(name);
+    setNewTaskDesc(desc);
+    setNewTaskDate(date);
+  }
 
   return (
     <>
@@ -104,7 +109,7 @@ function TaskList() {
           <div id='right'>
             <span id='date'>{task.dueDate.toDateString("en-US")}</span>
             <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
-            <Popup modal nested position="right" trigger= {<button id="edit" class="btn"> Edit </button>}>
+            <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate)} trigger={<button id="edit" class="btn"> Edit </button>}>
               {
                   close => (
                       <div class='modal'>
