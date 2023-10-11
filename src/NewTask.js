@@ -33,7 +33,7 @@ const NewTask = ({onTaskAdd}) => {
 
     return (
         <div>
-            <Popup position="right" trigger= {<button id="newTask"> New Task </button>}>
+            <Popup modal nested position="right" trigger= {<button id="newTask"> New Task </button>}>
                 {
                     close => (
                         <div class='modal'>
