@@ -85,6 +85,13 @@ function TaskList() {
     setNewTaskDate(date);
   }
 
+  /**
+   * Sets the values to be used in edit
+   * 
+   * @param {*} name The name to be set
+   * @param {*} desc The description to be set
+   * @param {*} date The date to be set
+   */
   const initializeNewValues = (name, desc, date) => {
     setNewTaskName(name);
     setNewTaskDesc(desc);
