@@ -18,7 +18,6 @@ function TaskList() {
   const [newTaskName, setNewTaskName] = useState("");
   const [newTaskDesc, setNewTaskDesc] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(new Date());
-  const [presentId, setPresentId] = useState("");
 
   // definition of a task
   class taskItem {
@@ -37,7 +36,6 @@ function TaskList() {
    * @param {*} id The id of the task that's going to be edited
    */
   const handleEdit = (id) => {
-    setPresentId(id);
     let i = 0;
     for(i = 0; i < taskLists.length; i++) {
       if(taskLists[i].id === id) {
@@ -49,9 +47,6 @@ function TaskList() {
     setNewTaskName("");
     setNewTaskDesc("");
     setNewTaskDate(new Date());
-    setPresentId("");
-
-
   }
 
   /**
@@ -98,37 +93,39 @@ function TaskList() {
           <span>{task.taskName+": "}</span>
           <span>{task.taskDesc+" "}</span>
           <span>{task.dueDate.toLocaleDateString("en-US")}</span>
-          <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
-          <Popup modal nested position="right" trigger= {<button id="newTask"> Edit </button>}>
-            {
-                close => (
-                    <div class='modal'>
-                            <div class='content'>
-                                <input 
-                                    id="title"  
-                                    type="text"
-                                    defaultValue={task.taskName}
-                                    onChange={(e) => setNewTaskName(e.target.value)}
-                                    />
-                                <textarea 
-                                    id="desc" 
-                                    defaultValue={task.taskDesc}
-                                    onChange={(e) => setNewTaskDesc(e.target.value)} 
-                                    />
-                            </div>
-                        <div>
-                        <button trigger className="btn" id='edit' type="button" onClick={() => 
-                          {
-                            handleEdit(task.id)
-                            close();
+          <div id='right'>
+            <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
+            <Popup modal nested position="right" trigger= {<button id="edit" class="btn"> Edit </button>}>
+              {
+                  close => (
+                      <div class='modal'>
+                              <div class='content'>
+                                  <input 
+                                      id="title"  
+                                      type="text"
+                                      defaultValue={task.taskName}
+                                      onChange={(e) => setNewTaskName(e.target.value)}
+                                      />
+                                  <textarea 
+                                      id="desc" 
+                                      defaultValue={task.taskDesc}
+                                      onChange={(e) => setNewTaskDesc(e.target.value)} 
+                                      />
+                              </div>
+                          <div>
+                          <button trigger id="edit" className="btn" type="button" onClick={() => 
+                            {
+                              handleEdit(task.id)
+                              close();
+                              }
                             }
-                          }
-                          > Edit </button>
-                        </div>
-                    </div>
-                )
-            }
-        </Popup>
+                            > Edit </button>
+                          </div>
+                      </div>
+                  )
+              }
+          </Popup>
+          </div>
         </li>
       ))}
 

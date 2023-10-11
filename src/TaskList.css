@@ -62,8 +62,8 @@ input {
     cursor: pointer;
 }
 
-#editDiv{
-    display: none;
+#right {
+    float: right;
 }
 
 li {
