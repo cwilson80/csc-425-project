@@ -76,6 +76,14 @@ function TaskList() {
     setTaskList((prev) => [...prev, task]);
   }
 
+  /**
+     * Function to handle recieving the date from the date picker element
+     * 
+     * @param {*} date The date to be set in the new task
+     */
+  const handleClosingDatePicker = (date) => {
+    setNewTaskDate(date);
+  }
 
 
   return (
@@ -112,6 +120,7 @@ function TaskList() {
                                       defaultValue={task.taskDesc}
                                       onChange={(e) => setNewTaskDesc(e.target.value)} 
                                       />
+                                  <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
                               </div>
                           <div>
                           {/*<TaskDatePicker defaultValue={task.dueDate} onClosingDatePicker={(date) => setNewTaskDate(date)}/>*/}
