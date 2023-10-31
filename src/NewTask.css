@@ -82,3 +82,7 @@ textarea:focus, input:focus{
     opacity: 0.5;
     cursor: pointer;
 }
+
+#date {
+    background-color: rgb(192, 192, 192);
+}

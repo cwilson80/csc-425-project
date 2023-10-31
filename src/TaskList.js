@@ -36,11 +36,6 @@ function TaskList() {
    * @param {*} id The id of the task that's going to be edited
    */
 
-
-
-
-
-
   const handleEdit = (id) => {
     let i = 0;
     for(i = 0; i < taskLists.length; i++) {
@@ -85,6 +80,14 @@ function TaskList() {
     setNewTaskDate(date);
   }
 
+  const handleComplete = (t) => {
+    t.completed = !t.completed;
+    setTaskList((prev) => [...prev]);
+}
+
+
+
+
   /**
    * Sets the values to be used in edit
    * 
@@ -104,16 +107,19 @@ function TaskList() {
       <div className='AddButton'>
         <h1>Task Manager</h1>
       </div>
-      {/* Button to add a new task to the list */}
-      <NewTask onTaskAdd={handleAddTask}/>
-      
+      <br></br>
+      <div>
+        {/* Button to add a new task to the list */}
+        <NewTask onTaskAdd={handleAddTask}/>
+      </div>
       {/* Map and display the tasks to a list */}
       {taskLists.map((task) => (
         <li key={task.id}>
-          <input type="checkbox"/>
+          <input type="checkbox" onChange={() => handleComplete(task)}/>
           <span>{task.taskName+" "}</span>
           <span id='desc'>{task.taskDesc+" "}</span>
           <div id='right'>
+            <span id='inProgress'>{task.completed ? 'Completed' : 'In-Progress'}</span>
             <span id='date'>{task.dueDate.toDateString("en-US")}</span>
             <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
             <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate)} trigger={<button id="edit" class="btn"> Edit </button>}>
@@ -135,7 +141,6 @@ function TaskList() {
                                   <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
                               </div>
                           <div>
-                          {/*<TaskDatePicker defaultValue={task.dueDate} onClosingDatePicker={(date) => setNewTaskDate(date)}/>*/}
                           <button trigger id="edit" className="btn" type="button" onClick={() => 
                             {
                               handleEdit(task.id);
