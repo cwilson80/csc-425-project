@@ -3,6 +3,7 @@ import React from 'react';
 import { useState } from "react";
 import "./App.css";
 import NewTask from './NewTask';
+import Popup from 'reactjs-popup';
 import TaskDatePicker from './TaskDatePicker';
 
 function TaskList() {
@@ -11,13 +12,12 @@ function TaskList() {
   const [globalID, setGlobalID] = useState(0);
 
   // Store taskItem objects instead of plain tasks.
-  const [taskLists, setTaskList] = useState([])
+  const [taskLists, setTaskList] = useState([]);
 
   // Temp storage of task information for modifying tasks
   const [newTaskName, setNewTaskName] = useState("");
   const [newTaskDesc, setNewTaskDesc] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(new Date());
-  const [presentId, setPresentId] = useState("");
 
   // definition of a task
   class taskItem {
@@ -35,9 +35,19 @@ function TaskList() {
    * 
    * @param {*} id The id of the task that's going to be edited
    */
+
   const handleEdit = (id) => {
-    document.getElementById("editDiv").style.display = "block";
-    setPresentId(id);
+    let i = 0;
+    for(i = 0; i < taskLists.length; i++) {
+      if(taskLists[i].id === id) {
+        taskLists[i].taskName = newTaskName;
+        taskLists[i].taskDesc = newTaskDesc;
+        taskLists[i].dueDate = newTaskDate;
+      }
+    }
+    setNewTaskName("");
+    setNewTaskDesc("");
+    setNewTaskDate(new Date());
   }
 
   /**
@@ -62,81 +72,93 @@ function TaskList() {
   }
 
   /**
-   * Function to update a task with the stored information from the inputs in the task list below.
-   * Resets temporary storage of task infor for reuse, then hides the edit fields.
-   * 
-   * @param {*} id The id of the task being updated
-   */
-  const Change = (id)=>{
-    let i = 0;
-    for(i = 0; i < taskLists.length; i++) {
-      if(taskLists[i].id === id) {
-        taskLists[i].taskName = newTaskName;
-        taskLists[i].taskDesc = newTaskDesc;
-        taskLists[i].dueDate = newTaskDate;
-      }
-    }
-    setNewTaskName("");
-    setNewTaskDesc("");
-    setNewTaskDate(new Date());
-    setPresentId("");
-    document.getElementById("editDiv").style.display = "none";
+     * Function to handle recieving the date from the date picker element
+     * 
+     * @param {*} date The date to be set in the new task
+     */
+  const handleClosingDatePicker = (date) => {
+    setNewTaskDate(date);
   }
 
+  const handleComplete = (t) => {
+    t.completed = !t.completed;
+    setTaskList((prev) => [...prev]);
+}
+
+
+
+
   /**
-   * Function to handle recieving the date from the date picker element
+   * Sets the values to be used in edit
    * 
-   * @param {*} date The date to be set in the new task
+   * @param {*} name The name to be set
+   * @param {*} desc The description to be set
+   * @param {*} date The date to be set
    */
-  const handleClosingDatePicker = (date) => {
+  const initializeNewValues = (name, desc, date) => {
+    setNewTaskName(name);
+    setNewTaskDesc(desc);
     setNewTaskDate(date);
   }
 
   return (
     <>
+    
       <div className='AddButton'>
         <h1>Task Manager</h1>
       </div>
-      <h2>Tasks</h2>
-      <hr class="solid"></hr>
-
-      {/* Button to add a new task to the list */}
-      <NewTask onTaskAdd={handleAddTask}/>
-      
+      <br></br>
+      <div>
+        {/* Button to add a new task to the list */}
+        <NewTask onTaskAdd={handleAddTask}/>
+      </div>
       {/* Map and display the tasks to a list */}
       {taskLists.map((task) => (
         <li key={task.id}>
-          <input type="checkbox"/>
-          <span>{task.taskName+": "}</span>
-          <span>{task.taskDesc+" "}</span>
-          <span>{task.dueDate.toLocaleDateString("en-US")}</span>
-          <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
-          <button className="btn" id='edit' type="button" onClick={() => handleEdit(task.id)}> Edit </button>
+          <input type="checkbox" onChange={() => handleComplete(task)}/>
+          <span>{task.taskName+" "}</span>
+          <span id='desc'>{task.taskDesc+" "}</span>
+          <div id='right'>
+            <span id='inProgress'>{task.completed ? 'Completed' : 'In-Progress'}</span>
+            <span id='date'>{task.dueDate.toDateString("en-US")}</span>
+            <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
+            <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate)} trigger={<button id="edit" class="btn"> Edit </button>}>
+              {
+                  close => (
+                      <div class='modal'>
+                              <div class='content'>
+                                  <input 
+                                      id="title"  
+                                      type="text"
+                                      defaultValue={task.taskName}
+                                      onChange={(e) => setNewTaskName(e.target.value)}
+                                      />
+                                  <textarea 
+                                      id="desc" 
+                                      defaultValue={task.taskDesc}
+                                      onChange={(e) => setNewTaskDesc(e.target.value)} 
+                                      />
+                                  <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
+                              </div>
+                          <div>
+                          <button trigger id="edit" className="btn" type="button" onClick={() => 
+                            {
+                              handleEdit(task.id);
+                              close();
+                              }
+                            }
+                            > Edit </button>
+                          </div>
+                      </div>
+                  )
+              }
+          </Popup>
+          </div>
         </li>
       ))}
 
       {/* Elements to allow users to enter new information for a task */}
-      <div id="editDiv">
-        {/* Input fields for updated task information */}
-        <input
-          type="text"
-          id="newTaskname"
-          placeholder="Enter new task name"
-          value={newTaskName}
-          onChange={(e) => setNewTaskName(e.target.value)}
-        />
-        <input
-          type="text"
-          id="newTaskdesc"
-          placeholder="Enter new task description"
-          value={newTaskDesc}
-          onChange={(e) => setNewTaskDesc(e.target.value)}
-        />
-        <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
-
-        {/* Button to save user modifications */}
-        <button onClick={()=>Change(presentId)}>Change</button>
-      </div>
+  
     </>
   );
 }

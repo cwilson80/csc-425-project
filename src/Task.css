@@ -1,0 +1,37 @@
+.tasks {
+    background-color:rgb(241, 241, 241);
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 75%;
+    margin: 10px;
+}
+
+.container {
+    float: right;
+}
+
+#edit {
+    background-color: #ffe6b7;
+    width: 50px;
+    color: rgb(255, 145, 0);
+}
+
+#delete {
+    background-color: rgb(255, 157, 157);
+    width: 75px;
+    color: rgb(255, 54, 54);
+}
+
+.btn {
+    color: white;
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    transition: 0.3s;
+}
+
+
+.btn:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}

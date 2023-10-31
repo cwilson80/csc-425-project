@@ -3,11 +3,16 @@
     padding-left: 12px;
     padding-top: 12px;
     padding-bottom: 12px;
-    background-color: #0000ff;
+    background-color: rgb(77, 154, 255);;
+    color: white;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {
-    color: white;
+    white: rgb(0, 0, 0);
 }
 
 hr,h2 {
@@ -17,7 +22,6 @@ hr,h2 {
 
 button {
     margin-left: 12px;
-    margin-right: 12px;
 }
 
 input {
@@ -33,21 +37,21 @@ input {
 }
 
 #delete {
-    background-color: rgb(255, 157, 157);
+    background-color: rgb(253, 183, 183);
     width: 75px;
     color: rgb(255, 54, 54);
 }
 
 #edit {
-    background-color: #ffe6b7;
+    background-color: #ffd380;
     width: 50px;
-    color: rgb(255, 145, 0);
+    color: rgb(202, 115, 0);
 }
 
 .btn {
     color: white;
     padding: 8px;
-    border-radius: 10px;
+    border-radius: 6px;
     border: none;
     transition: 0.3s;
 }
@@ -58,17 +62,61 @@ input {
     cursor: pointer;
 }
 
-#editDiv{
-    display: none;
+#right {
+    float: right;
 }
 
 li {
-    background-color: rgb(219, 219, 219);
+    background-color: rgb(241, 241, 241);
     padding: 10px;
     border-radius: 5px;
     margin: 10px;
+    list-style-type: none;
 }
 
 #title {
     font-weight: bold;
+}
+
+#date {
+    padding: 8px;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    size: 12px;
+    font-weight: bold;
+
+}
+
+span {
+    size: 12px;
+    text-align: center;
+}
+
+span:hover {
+    cursor: pointer;
+}
+
+#dueDate {
+    float: right;
+    width: 25%;
+
+}
+
+#table {
+    height: 30px;
+    margin: 10px;
+}
+
+#tasks {
+    width: 50%;
+}
+
+#completed {
+    width: 50%;
+}
+
+#inProgress {
+    width: 100px;
+    padding: 10px;
+    text-align: center;
 }

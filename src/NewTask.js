@@ -33,7 +33,7 @@ const NewTask = ({onTaskAdd}) => {
 
     return (
         <div>
-            <Popup position="right" trigger= {<button id="newTask"> New Task </button>}>
+            <Popup modal nested position="right" trigger= {<button id="newTask"> New Task </button>}>
                 {
                     close => (
                         <div class='modal'>
@@ -50,7 +50,7 @@ const NewTask = ({onTaskAdd}) => {
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         />
-                                    <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
+                                    <TaskDatePicker id="date" onClosingDatePicker={handleClosingDatePicker}/>
                                 </div>
                             <div>
                                 <button trigger className="btn" type="submit" onClick=
