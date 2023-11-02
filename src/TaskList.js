@@ -116,7 +116,7 @@ function TaskList() {
       {taskLists.map((task) => (
         <li key={task.id}>
           <input type="checkbox" onChange={() => handleComplete(task)}/>
-          <span>{task.taskName+" "}</span>
+          <span id="title">{task.taskName+" "}</span>
           <span id='desc'>{task.taskDesc+" "}</span>
           <div id='right'>
             <span id='inProgress'>{task.completed ? 'Completed' : 'In-Progress'}</span>
