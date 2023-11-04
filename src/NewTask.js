@@ -50,7 +50,7 @@ const NewTask = ({onTaskAdd}) => {
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         />
-                                    <TaskDatePicker id="date" onClosingDatePicker={handleClosingDatePicker}/>
+                                    <TaskDatePicker value={dueDate} id="date" onClosingDatePicker={handleClosingDatePicker}/>
                                 </div>
                             <div>
                                 <button trigger className="btn" type="submit" onClick=

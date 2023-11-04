@@ -93,13 +93,29 @@ function TaskList() {
    * 
    * @param {*} newTask The task to be added to the list
    */
-  const handleAddTask = (newTask) => {
-    const task = new taskItem(newTask.title, newTask.description, newTask.dueDate, globalID);
-    setGlobalID(globalID+1);
-    setTaskList((prev) => [...prev, task]);
 
-    
-  }
+
+  const handleAddTask = async (newTask) => {
+    await fetch('', {
+       method: 'POST',
+       body: JSON.stringify({
+          title: newTask.title,
+          desc: newTask.desc,
+          date: newTask.date,
+       }),
+       headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+       },
+    })
+       .then((response) => response.json())
+       .then((data) => {
+          setTaskList((taskLists) => [data, ...taskLists]);
+       })
+       .catch((err) => {
+          console.log(err.message);
+       });
+ };
+ 
 
   /**
      * Function to handle recieving the date from the date picker element
