@@ -16,7 +16,7 @@ function TaskList() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setPosts(data);
+        setTaskList(data);
       })
       .catch((err) => {
         console.log(err.message);
