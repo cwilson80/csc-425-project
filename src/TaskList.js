@@ -1,12 +1,27 @@
 import './TaskList.css';
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import NewTask from './NewTask';
 import Popup from 'reactjs-popup';
 import TaskDatePicker from './TaskDatePicker';
 
 function TaskList() {
+  // where the retrieved tasks are stored
+  const [posts, setPosts] = useState([]);
+
+  // fetches the tasks from the database, placeholder url until further notice
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPosts(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   // Keep track of current ID to keep them unique
   const [globalID, setGlobalID] = useState(0);
