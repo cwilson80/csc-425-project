@@ -57,15 +57,15 @@ function TaskList() {
    */
   const handleDelete = async (id) => {
     let response = await fetch(
-       `${id}`,
+       `${id}`, //api url will go here
        {
           method: 'DELETE',
        }
     );
     if (response.status === 200) {
        setTaskList(
-          taskLists.filter((post) => {
-             return post.id !== id;
+          taskLists.filter((task) => {
+             return task.id !== id;
           })
        );
     } else {
