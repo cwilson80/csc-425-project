@@ -55,10 +55,23 @@ function TaskList() {
    * 
    * @param {*} id The id of the task to be deleted
    */
-  function handleDelete(id) {
-    const newTaskList = taskLists.filter((item) => item.id !== id);
-    setTaskList(newTaskList);
-  }
+  const handleDelete = async (id) => {
+    let response = await fetch(
+       `https://jsonplaceholder.typicode.com/posts/${id}`,
+       {
+          method: 'DELETE',
+       }
+    );
+    if (response.status === 200) {
+       setTaskList(
+          taskLists.filter((post) => {
+             return post.id !== id;
+          })
+       );
+    } else {
+       return;
+    }
+ };
 
   /**
    * Function to handle adding a task from the NewTask popup
@@ -69,6 +82,8 @@ function TaskList() {
     const task = new taskItem(newTask.title, newTask.description, newTask.dueDate, globalID);
     setGlobalID(globalID+1);
     setTaskList((prev) => [...prev, task]);
+
+    
   }
 
   /**
@@ -87,7 +102,6 @@ function TaskList() {
 
 
 
-
   /**
    * Sets the values to be used in edit
    * 
@@ -103,7 +117,7 @@ function TaskList() {
 
   return (
     <>
-    
+    <div className='container'>
       <div className='AddButton'>
         <h1>Task Manager</h1>
       </div>
@@ -156,7 +170,7 @@ function TaskList() {
           </div>
         </li>
       ))}
-
+      </div>
       {/* Elements to allow users to enter new information for a task */}
   
     </>
