@@ -57,7 +57,7 @@ function TaskList() {
    */
   const handleDelete = async (id) => {
     let response = await fetch(
-       `https://jsonplaceholder.typicode.com/posts/${id}`,
+       `${id}`,
        {
           method: 'DELETE',
        }
