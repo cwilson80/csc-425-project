@@ -51,15 +51,25 @@ function TaskList() {
    * @param {*} id The id of the task that's going to be edited
    */
 
-  const handleEdit = (id) => {
-    let i = 0;
-    for(i = 0; i < taskLists.length; i++) {
-      if(taskLists[i].id === id) {
-        taskLists[i].taskName = newTaskName;
-        taskLists[i].taskDesc = newTaskDesc;
-        taskLists[i].dueDate = newTaskDate;
-      }
-    }
+  const handleEdit = async (id) => {
+    await fetch('', {
+      method: 'POST',
+      body: JSON.stringify({
+        title: newTaskName,
+        desc: newTaskDesc,
+        date: newTaskDate,
+      }),
+      headers: {
+         'Content-type': 'application/json; charset=UTF-8',
+      },
+   })
+    .then((response) => response.json())
+    .then((data) => {
+       this.setState({ id: data.id});
+    })
+    .catch((err) => {
+       console.log(err.message);
+    });
     setNewTaskName("");
     setNewTaskDesc("");
     setNewTaskDate(new Date());
