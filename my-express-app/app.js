@@ -5,7 +5,7 @@ const cors = require('cors');
 const taskRoutes = require('./routes/tasks');
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://Database-Access:csc425123@csc425-project-database.obdl3wj.mongodb.net/', {
@@ -14,6 +14,7 @@ mongoose.connect('mongodb+srv://Database-Access:csc425123@csc425-project-databas
 });
 
 // Middleware setup
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 

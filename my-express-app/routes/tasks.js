@@ -26,7 +26,7 @@ router.get('/tasks', async (req, res) => {
 // Update a task by ID
 router.patch('/tasks/:id', async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ['title', 'description', 'completed'];
+  const allowedUpdates = ['title', 'description', 'completed', 'duedate'];
   const isValidOperation = updates.every(update => allowedUpdates.includes(update));
 
   if (!isValidOperation) {

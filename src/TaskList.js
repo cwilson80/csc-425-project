@@ -1,10 +1,11 @@
 import './TaskList.css';
 import React from 'react';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import NewTask from './NewTask';
 import Popup from 'reactjs-popup';
 import TaskDatePicker from './TaskDatePicker';
+import axios from 'axios';
 
 
 function TaskList() {
@@ -27,9 +28,17 @@ function TaskList() {
       this.taskDesc = taskDesc;
       this.dueDate = dueDate;
       this.id = id;
-      this.completed = false
+      this.completed = false;
     }
   }
+
+  useEffect(() => {
+    axios.get('/api/tasks').then((response) => {
+        setTaskList(response.data);
+      }).catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   /**
    * Displays the edit fields and sets the current id of the task being edited
@@ -70,6 +79,13 @@ function TaskList() {
     const task = new taskItem(newTask.title, newTask.description, newTask.dueDate, globalID);
     setGlobalID(globalID+1);
     setTaskList((prev) => [...prev, task]);
+
+    axios.post('/api/tasks', newTask)
+      .then((response) => {
+        setTaskList(response.data);
+      }).catch((error) => {
+        console.error(error);
+      });
   }
 
   /**
@@ -101,7 +117,6 @@ function TaskList() {
 
   return (
     <>
-
       <div className='AddButton'>
         <h1>Task Manager</h1>
       </div>

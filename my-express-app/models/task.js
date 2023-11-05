@@ -1,3 +1,4 @@
+const { Int32 } = require('mongodb');
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
@@ -5,6 +6,7 @@ const taskSchema = new mongoose.Schema({
   description: String,
   duedate: String,
   completed: Boolean,
+  id: Number
 });
 
 const Task = mongoose.model('Task', taskSchema);
