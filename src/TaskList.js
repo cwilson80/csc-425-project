@@ -12,7 +12,7 @@ function TaskList() {
 
   // fetches the tasks from the database, placeholder url until further notice
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
+    fetch('http://localhost:3001/api/tasks')
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -41,7 +41,7 @@ function TaskList() {
       this.taskDesc = taskDesc;
       this.dueDate = dueDate;
       this.id = id;
-      this.completed = false
+      this.completed = false;
     }
   }
 
@@ -52,28 +52,31 @@ function TaskList() {
    */
 
   const handleEdit = async (id) => {
-    await fetch('', {
-      method: 'POST',
-      body: JSON.stringify({
-        title: newTaskName,
-        desc: newTaskDesc,
-        date: newTaskDate,
-      }),
-      headers: {
-         'Content-type': 'application/json; charset=UTF-8',
-      },
-   })
-    .then((response) => response.json())
-    .then((data) => {
-       this.setState({ id: data.id});
-    })
-    .catch((err) => {
-       console.log(err.message);
-    });
-    setNewTaskName("");
-    setNewTaskDesc("");
-    setNewTaskDate(new Date());
-  }
+    try {
+      const response = await fetch(`http://localhost:3001/api/tasks/${id}`, {
+        method: 'PUT', // Use PUT for update operations
+        body: JSON.stringify({
+          taskName: newTaskName,
+          taskDesc: newTaskDesc,
+          dueDate: newTaskDate,
+          completed: false
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const updatedTask = await response.json();
+      setTaskList(taskLists.map((task) => (task.id === id ? updatedTask : task)));
+      setNewTaskName("");
+      setNewTaskDesc("");
+      setNewTaskDate(new Date());
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
+  };
 
   /**
    * Deletes the task specified by the id from the list
@@ -81,22 +84,19 @@ function TaskList() {
    * @param {*} id The id of the task to be deleted
    */
   const handleDelete = async (id) => {
-    let response = await fetch(
-       `${id}`, //api url will go here
-       {
-          method: 'DELETE',
-       }
-    );
-    if (response.status === 200) {
-       setTaskList(
-          taskLists.filter((task) => {
-             return task.id !== id;
-          })
-       );
-    } else {
-       return;
+    try {
+      const response = await fetch(`http://localhost:3001/api/tasks/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        setTaskList(taskLists.filter((task) => task.id !== id));
+      } else {
+        throw new Error('Deletion failed');
+      }
+    } catch (error) {
+      console.error('Error deleting task:', error);
     }
- };
+  };
 
   /**
    * Function to handle adding a task from the NewTask popup
@@ -106,26 +106,29 @@ function TaskList() {
 
 
   const handleAddTask = async (newTask) => {
-    await fetch('', {
-       method: 'POST',
-       body: JSON.stringify({
-          title: newTask.title,
-          desc: newTask.desc,
-          date: newTask.date,
-       }),
-       headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-       },
-    })
-       .then((response) => response.json())
-       .then((data) => {
-          setTaskList((taskLists) => [data, ...taskLists]);
-       })
-       .catch((err) => {
-          console.log(err.message);
-       });
- };
- 
+    try {
+      const response = await fetch('http://localhost:3001/api/tasks', {
+        method: 'POST',
+        body: JSON.stringify({
+          taskName: newTask.title,
+          taskDesc: newTask.description,
+          dueDate: newTask.dueDate,
+          id: globalID,
+          completed: false
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setTaskList((taskLists) => [data, ...taskLists]);
+    } catch (error) {
+      console.error('Error adding task:', error);
+    }
+  };
 
   /**
      * Function to handle recieving the date from the date picker element
@@ -175,9 +178,9 @@ function TaskList() {
           <span id='desc'>{task.taskDesc+" "}</span>
           <div id='right'>
             <span id='inProgress'>{task.completed ? 'Completed' : 'In-Progress'}</span>
-            <span id='date'>{task.dueDate.toDateString("en-US")}</span>
+            <span id='date'>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span>
             <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
-            <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate)} trigger={<button id="edit" class="btn"> Edit </button>}>
+            <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate)} trigger={<button id="edit" className="btn"> Edit </button>}>
               {
                   close => (
                       <div class='modal'>
