@@ -6,6 +6,7 @@ import NewTask from './NewTask';
 import Popup from 'reactjs-popup';
 import TaskDatePicker from './TaskDatePicker';
 
+
 function TaskList() {
 
   // Keep track of current ID to keep them unique
@@ -65,7 +66,7 @@ function TaskList() {
    * 
    * @param {*} newTask The task to be added to the list
    */
-  const handleAddTask = (newTask) => {
+  const handleAddTask = async (newTask) => {
     const task = new taskItem(newTask.title, newTask.description, newTask.dueDate, globalID);
     setGlobalID(globalID+1);
     setTaskList((prev) => [...prev, task]);
@@ -83,10 +84,7 @@ function TaskList() {
   const handleComplete = (t) => {
     t.completed = !t.completed;
     setTaskList((prev) => [...prev]);
-}
-
-
-
+  }
 
   /**
    * Sets the values to be used in edit
@@ -103,7 +101,7 @@ function TaskList() {
 
   return (
     <>
-    
+
       <div className='AddButton'>
         <h1>Task Manager</h1>
       </div>
@@ -128,13 +126,13 @@ function TaskList() {
                       <div class='modal'>
                               <div class='content'>
                                   <input 
-                                      id="title"  
+                                      id="title"
                                       type="text"
                                       defaultValue={task.taskName}
                                       onChange={(e) => setNewTaskName(e.target.value)}
                                       />
                                   <textarea 
-                                      id="desc" 
+                                      id="desc"
                                       defaultValue={task.taskDesc}
                                       onChange={(e) => setNewTaskDesc(e.target.value)} 
                                       />
@@ -152,7 +150,7 @@ function TaskList() {
                       </div>
                   )
               }
-          </Popup>
+            </Popup>
           </div>
         </li>
       ))}
