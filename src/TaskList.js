@@ -48,13 +48,13 @@ function TaskList() {
   /**
    * Displays the edit fields and sets the current id of the task being edited
    * 
-   * @param {*} id The id of the task that's going to be edited
+   * @param {*} _id The id of the task that's going to be edited
    */
 
-  const handleEdit = async (id) => {
+  const handleEdit = async (_id) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/tasks/${id}`, {
-        method: 'PUT', // Use PUT for update operations
+      const response = await fetch(`http://localhost:3001/api/tasks/${_id}`, {
+        method: 'PATCH',
         body: JSON.stringify({
           taskName: newTaskName,
           taskDesc: newTaskDesc,
@@ -69,7 +69,7 @@ function TaskList() {
         throw new Error('Network response was not ok');
       }
       const updatedTask = await response.json();
-      setTaskList(taskLists.map((task) => (task.id === id ? updatedTask : task)));
+      setTaskList(taskLists.map((task) => (task._id === _id ? updatedTask : task)));
       setNewTaskName("");
       setNewTaskDesc("");
       setNewTaskDate(new Date());
@@ -125,6 +125,7 @@ function TaskList() {
       }
       const data = await response.json();
       setTaskList((taskLists) => [data, ...taskLists]);
+      setGlobalID(globalID+1);
     } catch (error) {
       console.error('Error adding task:', error);
     }
@@ -172,14 +173,14 @@ function TaskList() {
       </div>
       {/* Map and display the tasks to a list */}
       {taskLists.map((task) => (
-        <li key={task.id}>
+        <li key={task._id}>
           <input type="checkbox" onChange={() => handleComplete(task)}/>
           <span id="title">{task.taskName+" "}</span>
           <span id='desc'>{task.taskDesc+" "}</span>
           <div id='right'>
             <span id='inProgress'>{task.completed ? 'Completed' : 'In-Progress'}</span>
             <span id='date'>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span>
-            <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
+            <button className="btn" id='delete' type="button" onClick={() => handleDelete(task._id)}> Delete </button>
             <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate)} trigger={<button id="edit" className="btn"> Edit </button>}>
               {
                   close => (
