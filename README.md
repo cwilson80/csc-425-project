@@ -11,7 +11,7 @@ Task Master Web Application
 - Use 'cd .\my-express-app\' to navigate to the my-express-app folder in the terminal
 - Enter 'node app.js'
 - Wait for the server to start
-- Open a new terminal
+- Open a new terminal, do not close the previous terminal
 - Enter 'npm start'
 - Wait for the app to start and open in your browser
 - Now you should be able to see the tasks, add new ones, and edit/delete already existing ones
