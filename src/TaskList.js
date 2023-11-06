@@ -83,13 +83,13 @@ function TaskList() {
    * 
    * @param {*} id The id of the task to be deleted
    */
-  const handleDelete = async (id) => {
+  const handleDelete = async (_id) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/tasks/${id}`, {
+      const response = await fetch(`http://localhost:3001/api/tasks/${_id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
-        setTaskList(taskLists.filter((task) => task.id !== id));
+        setTaskList(taskLists.filter((task) => task._id !== _id));
       } else {
         throw new Error('Deletion failed');
       }
