@@ -202,7 +202,7 @@ function TaskList() {
                           <div>
                           <button trigger id="edit" className="btn" type="button" onClick={() => 
                             {
-                              handleEdit(task.id);
+                              handleEdit(task._id);
                               close();
                               }
                             }
