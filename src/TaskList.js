@@ -33,6 +33,7 @@ function TaskList() {
   const [newTaskName, setNewTaskName] = useState("");
   const [newTaskDesc, setNewTaskDesc] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(new Date());
+  const [newCompleted, setNewCompleted] = useState(false);
 
   // definition of a task
   class taskItem {
@@ -59,7 +60,7 @@ function TaskList() {
           taskName: newTaskName,
           taskDesc: newTaskDesc,
           dueDate: newTaskDate,
-          completed: false
+          completed: newCompleted
         }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
@@ -113,7 +114,6 @@ function TaskList() {
           taskName: newTask.title,
           taskDesc: newTask.description,
           dueDate: newTask.dueDate,
-          id: globalID,
           completed: false
         }),
         headers: {
@@ -154,10 +154,11 @@ function TaskList() {
    * @param {*} desc The description to be set
    * @param {*} date The date to be set
    */
-  const initializeNewValues = (name, desc, date) => {
+  const initializeNewValues = (name, desc, date, completed) => {
     setNewTaskName(name);
     setNewTaskDesc(desc);
     setNewTaskDate(date);
+    setNewCompleted(completed);
   }
 
   return (
@@ -174,14 +175,14 @@ function TaskList() {
       {/* Map and display the tasks to a list */}
       {taskLists.map((task) => (
         <li key={task._id}>
-          <input type="checkbox" onChange={() => handleComplete(task)}/>
+          <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
           <span id="title">{task.taskName+" "}</span>
           <span id='desc'>{task.taskDesc+" "}</span>
           <div id='right'>
             <span id='inProgress'>{task.completed ? 'Completed' : 'In-Progress'}</span>
             <span id='date'>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span>
             <button className="btn" id='delete' type="button" onClick={() => handleDelete(task._id)}> Delete </button>
-            <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate)} trigger={<button id="edit" className="btn"> Edit </button>}>
+            <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate, task.completed)} trigger={<button id="edit" className="btn"> Edit </button>}>
               {
                   close => (
                       <div class='modal'>
