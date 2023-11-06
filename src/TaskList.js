@@ -1,12 +1,27 @@
 import './TaskList.css';
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import NewTask from './NewTask';
 import Popup from 'reactjs-popup';
 import TaskDatePicker from './TaskDatePicker';
 
 function TaskList() {
+  // where the retrieved tasks are stored
+  const [posts, setPosts] = useState([]);
+
+  // fetches the tasks from the database, placeholder url until further notice
+  useEffect(() => {
+    fetch('http://localhost:3001/api/tasks')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setTaskList(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   // Keep track of current ID to keep them unique
   const [globalID, setGlobalID] = useState(0);
@@ -18,6 +33,7 @@ function TaskList() {
   const [newTaskName, setNewTaskName] = useState("");
   const [newTaskDesc, setNewTaskDesc] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(new Date());
+  const [newCompleted, setNewCompleted] = useState(false);
 
   // definition of a task
   class taskItem {
@@ -26,50 +42,94 @@ function TaskList() {
       this.taskDesc = taskDesc;
       this.dueDate = dueDate;
       this.id = id;
-      this.completed = false
+      this.completed = false;
     }
   }
 
   /**
    * Displays the edit fields and sets the current id of the task being edited
    * 
-   * @param {*} id The id of the task that's going to be edited
+   * @param {*} _id The id of the task that's going to be edited
    */
 
-  const handleEdit = (id) => {
-    let i = 0;
-    for(i = 0; i < taskLists.length; i++) {
-      if(taskLists[i].id === id) {
-        taskLists[i].taskName = newTaskName;
-        taskLists[i].taskDesc = newTaskDesc;
-        taskLists[i].dueDate = newTaskDate;
+  const handleEdit = async (_id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/tasks/${_id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          taskName: newTaskName,
+          taskDesc: newTaskDesc,
+          dueDate: newTaskDate,
+          completed: newCompleted
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
+      const updatedTask = await response.json();
+      setTaskList(taskLists.map((task) => (task._id === _id ? updatedTask : task)));
+      setNewTaskName("");
+      setNewTaskDesc("");
+      setNewTaskDate(new Date());
+    } catch (error) {
+      console.error('Error updating task:', error);
     }
-    setNewTaskName("");
-    setNewTaskDesc("");
-    setNewTaskDate(new Date());
-  }
+  };
 
   /**
    * Deletes the task specified by the id from the list
    * 
    * @param {*} id The id of the task to be deleted
    */
-  function handleDelete(id) {
-    const newTaskList = taskLists.filter((item) => item.id !== id);
-    setTaskList(newTaskList);
-  }
+  const handleDelete = async (_id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/tasks/${_id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        setTaskList(taskLists.filter((task) => task._id !== _id));
+      } else {
+        throw new Error('Deletion failed');
+      }
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
+  };
 
   /**
    * Function to handle adding a task from the NewTask popup
    * 
    * @param {*} newTask The task to be added to the list
    */
-  const handleAddTask = (newTask) => {
-    const task = new taskItem(newTask.title, newTask.description, newTask.dueDate, globalID);
-    setGlobalID(globalID+1);
-    setTaskList((prev) => [...prev, task]);
-  }
+
+
+  const handleAddTask = async (newTask) => {
+    try {
+      const response = await fetch('http://localhost:3001/api/tasks', {
+        method: 'POST',
+        body: JSON.stringify({
+          taskName: newTask.title,
+          taskDesc: newTask.description,
+          dueDate: newTask.dueDate,
+          completed: false
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setTaskList((taskLists) => [data, ...taskLists]);
+      setGlobalID(globalID+1);
+    } catch (error) {
+      console.error('Error adding task:', error);
+    }
+  };
 
   /**
      * Function to handle recieving the date from the date picker element
@@ -87,7 +147,6 @@ function TaskList() {
 
 
 
-
   /**
    * Sets the values to be used in edit
    * 
@@ -95,15 +154,16 @@ function TaskList() {
    * @param {*} desc The description to be set
    * @param {*} date The date to be set
    */
-  const initializeNewValues = (name, desc, date) => {
+  const initializeNewValues = (name, desc, date, completed) => {
     setNewTaskName(name);
     setNewTaskDesc(desc);
     setNewTaskDate(date);
+    setNewCompleted(completed);
   }
 
   return (
     <>
-    
+    <div className='container'>
       <div className='AddButton'>
         <h1>Task Manager</h1>
       </div>
@@ -114,15 +174,15 @@ function TaskList() {
       </div>
       {/* Map and display the tasks to a list */}
       {taskLists.map((task) => (
-        <li key={task.id}>
-          <input type="checkbox" onChange={() => handleComplete(task)}/>
+        <li key={task._id}>
+          <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
           <span id="title">{task.taskName+" "}</span>
           <span id='desc'>{task.taskDesc+" "}</span>
           <div id='right'>
             <span id='inProgress'>{task.completed ? 'Completed' : 'In-Progress'}</span>
-            <span id='date'>{task.dueDate.toDateString("en-US")}</span>
-            <button className="btn" id='delete' type="button" onClick={() => handleDelete(task.id)}> Delete </button>
-            <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate)} trigger={<button id="edit" class="btn"> Edit </button>}>
+            <span id='date'>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span>
+            <button className="btn" id='delete' type="button" onClick={() => handleDelete(task._id)}> Delete </button>
+            <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate, task.completed)} trigger={<button id="edit" className="btn"> Edit </button>}>
               {
                   close => (
                       <div class='modal'>
@@ -143,7 +203,7 @@ function TaskList() {
                           <div>
                           <button trigger id="edit" className="btn" type="button" onClick={() => 
                             {
-                              handleEdit(task.id);
+                              handleEdit(task._id);
                               close();
                               }
                             }
@@ -156,7 +216,7 @@ function TaskList() {
           </div>
         </li>
       ))}
-
+      </div>
       {/* Elements to allow users to enter new information for a task */}
   
     </>
