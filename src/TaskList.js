@@ -192,11 +192,13 @@ function TaskList() {
                                       type="text"
                                       defaultValue={task.taskName}
                                       onChange={(e) => setNewTaskName(e.target.value)}
+                                      maxlength="20"
                                       />
                                   <textarea 
                                       id="desc" 
                                       defaultValue={task.taskDesc}
                                       onChange={(e) => setNewTaskDesc(e.target.value)} 
+                                      maxlength="160"
                                       />
                                   <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
                               </div>

@@ -43,12 +43,14 @@ const NewTask = ({onTaskAdd}) => {
                                         placeholder="Title" 
                                         value={title}
                                         onChange={(e) => setTitle(e.target.value)}
+                                        maxlength="20"
                                         />
                                     <textarea 
                                         id="desc" 
                                         placeholder="Description" 
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
+                                        maxlength="160"
                                         />
                                     <TaskDatePicker value={dueDate} id="date" onClosingDatePicker={handleClosingDatePicker}/>
                                 </div>
