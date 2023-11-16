@@ -1,127 +1,96 @@
-.AddButton {
-    text-align: left;
-    padding-left: 12px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    background-color: rgb(77, 154, 255);;
+html, body {
+    background-color: rgb(44, 44, 44);
+    font-family: 'Inter', sans-serif;
+    color: rgb(56, 56, 56);
+    font-size: 14px;
+    margin: 0px;
+    padding: 0px;
+
+}
+
+#main-container {
+    width: 75vw;
+    height: 100vh;
+    margin: auto;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+#sidebar {
+    float: left;
+    background-color: rgb(75, 75, 75);
+    height: 100vh;
+    width: 15%;
     color: white;
-}
+    display: inline;
+  }
 
-body {
-    font-family: 'Roboto', sans-serif;
-}
+  ul{
+    list-style: none;
+  }
 
-h1 {
-    white: rgb(0, 0, 0);
-}
-
-hr,h2 {
-    color: white;
-    margin: 12px;
-}
-
-button {
-    margin-left: 12px;
-}
-
-input {
-    margin: 12px;
-}
-
-.checkbox[type=checkbox]{
-    accent-color: green;
-}
-
-.select{
-    color: white;
-}
-
-#delete {
-    background-color: rgb(253, 183, 183);
-    width: 75px;
-    color: rgb(255, 54, 54);
-}
-
-#edit {
-    background-color: #ffd380;
-    width: 50px;
-    color: rgb(202, 115, 0);
-}
-
-.btn {
-    color: white;
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
-    transition: 0.3s;
-}
-
-
-.btn:hover {
-    opacity: 0.6;
-    cursor: pointer;
-}
-
-#right {
-    float: right;
-}
-
-li {
-    background-color: rgb(241, 241, 241);
+  li {
     padding: 10px;
-    border-radius: 5px;
-    margin: 10px;
-    list-style-type: none;
+  }
+
+  li:hover {
+    background-color: black;
+    transition: 0.5s;
+  }
+
+#task-container {
+    float: right;
+    width: 85%;
+}
+  
+  th {
+    text-align: left;
+    color: rgb(146, 146, 146);
+    border-top: 1px solid rgb(85, 85, 85);;
+    border-bottom: 1px solid rgb(85, 85, 85);;
+    border-right: 1px solid rgb(85, 85, 85);;
+    font-weight: 500;
+
+  }
+
+  td {
+    text-align: left;
+    border-top: 1px solid rgb(85, 85, 85);;
+    border-bottom: 1px solid rgb(85, 85, 85);;
+    border-right: 1px solid rgb(85, 85, 85);;  
+    color: rgb(255, 255, 255);
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+  #task-title {
+    font-weight: 500;
+    height: 35px;
+  }
+  
+  #title-text {
+    font-weight: 500;
+  }
+
+h3 {
+    color: white;
 }
 
-#title {
-    font-weight: bold;
+header {
+    padding: 10px;
 }
 
-#date {
-    padding: 8px;
-    border-radius: 5px;
-    color: rgb(0, 0, 0);
-    size: 12px;
-    font-weight: bold;
-
+#status {
+    padding: 5px;
+    background-color: rgb(92, 139, 92);
+    border-radius: 7px;
+    color: white;
+    font-weight: 300;
+    font-size: 14px;
 }
 
 span {
-    size: 12px;
-    text-align: center;
-}
-
-span:hover {
-    cursor: pointer;
-}
-
-#dueDate {
-    float: right;
-    width: 25%;
-
-}
-
-#table {
-    height: 30px;
-    margin: 10px;
-}
-
-#tasks {
-    width: 50%;
-}
-
-#completed {
-    width: 50%;
-}
-
-#inProgress {
-    width: 100px;
-    padding: 10px;
-    text-align: center;
-}
-
-
-.container {
-    margin: auto;
+    margin: 5px;
 }

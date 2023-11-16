@@ -163,17 +163,44 @@ function TaskList() {
 
   return (
     <>
-    <div className='container'>
-      <div className='AddButton'>
-        <h1>Task Manager</h1>
-      </div>
-      <br></br>
-      <div>
+    {taskLists.map((task) => (
+            <body>
+            <div id="main-container">
+                <div id="sidebar">
+                    <ul>
+                        <li class="item"><NewTask onTaskAdd={handleAddTask}/></li>
+                        <li class="item">All Tasks</li>
+                        <li class="item">In-Progress</li>
+                        <li class="item">Completed</li>
+                    </ul>
+                </div>
+                    <div id="task-container">
+                    <table>
+                        <tr>
+                            <th><span >Task</span></th>
+                            <th><span >Description</span></th>
+                            <th><span >Date</span></th>
+                            <th><span >Status</span></th>
+                        </tr>
+                        <tr key={task._id}>
+                            <td id="task-title">
+                                <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
+                                <span id="title-text">{task.taskName}</span>
+                            </td>
+                            <td><span>{task.taskDesc}</span></td>
+                            <td><span>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span></td>
+                            <td>
+                                <span id="status">{task.completed ? 'Completed' : 'In-Progress'}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </body>
+    ))}
         {/* Button to add a new task to the list */}
-        <NewTask onTaskAdd={handleAddTask}/>
-      </div>
       {/* Map and display the tasks to a list */}
-      {taskLists.map((task) => (
+      {/* {taskLists.map((task) => (
         <li key={task._id}>
           <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
           <span id="title">{task.taskName+" "}</span>
@@ -217,8 +244,7 @@ function TaskList() {
           </Popup>
           </div>
         </li>
-      ))}
-      </div>
+      ))} */}
       {/* Elements to allow users to enter new information for a task */}
   
     </>
