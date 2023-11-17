@@ -184,13 +184,13 @@ function TaskList() {
                         {taskLists.map((task) => (
                         <tr>
                             <td id="task-title">
-                                <input type="checkbox" checked="checked"/>
+                                <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
                                 <span id="title-text">{task.taskName}</span>
                             </td>
                             <td><span>{task.taskDesc}</span></td>
                             <td><span>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span></td>
                             <td>
-                                <span id="status">Completed</span>
+                                <span id="status">{task.completed ? 'Completed' : 'In-Progress'}</span>
                             </td>
                         </tr>
                         ))}
