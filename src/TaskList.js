@@ -7,7 +7,7 @@ import Popup from 'reactjs-popup';
 import TaskDatePicker from './TaskDatePicker';
 import { FaEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
-
+import { FaPlusSquare } from "react-icons/fa";
 
 function TaskList() {
   // where the retrieved tasks are stored
@@ -170,19 +170,22 @@ function TaskList() {
             <div id="main-container">
                 <div id="sidebar">
                     <ul>
-                        <li class="item"><NewTask onTaskAdd={handleAddTask}/></li>
                         <li class="item">All Tasks</li>
                         <li class="item">In-Progress</li>
                         <li class="item">Completed</li>
                     </ul>
                 </div>
                     <div id="task-container">
+                    <div id='header'>
+                      <h1>All Tasks</h1>
+                      <NewTask onTaskAdd={handleAddTask}/>
+                    </div>
                     <table>
                         <tr>
-                            <th><span >Task</span></th>
-                            <th><span >Description</span></th>
-                            <th><span >Date</span></th>
-                            <th><span >Status</span></th>
+                            <th style={{width: "250px"}}><span >Task</span></th>
+                            <th><span>Description</span></th>
+                            <th style={{width: "150px"}}><span >Date</span></th>
+                            <th style={{width: "80px"}}><span >Status</span></th>
                         </tr>
                         {taskLists.map((task) => (
                         <tr>
@@ -224,10 +227,10 @@ function TaskList() {
                                 <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
                                 <span id="title-text">{task.taskName}</span>
                             </td>
-                            <td><span>{task.taskDesc}</span></td>
+                            <td><span className='desc'>{task.taskDesc}</span></td>
                             <td><span>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span></td>
                             <td>
-                                <span id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'In-Progress'}</span>
+                                <span id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'Current'}</span>
                             </td>
                         </tr>
                         ))}
@@ -235,54 +238,7 @@ function TaskList() {
                 </div>
             </div>
         </body>
-        {/* Button to add a new task to the list */}
-      {/* Map and display the tasks to a list */}
-      {/* {taskLists.map((task) => (
-        <li key={task._id}>
-          <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
-          <span id="title">{task.taskName+" "}</span>
-          <span id='desc'>{task.taskDesc+" "}</span>
-          <div id='right'>
-            <span id='inProgress'>{task.completed ? 'Completed' : 'In-Progress'}</span>
-            <span id='date'>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span>
-            <button className="btn" id='delete' type="button" onClick={() => handleDelete(task._id)}> Delete </button>
-            <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate, task.completed)} trigger={<button id="edit" className="btn"> Edit </button>}>
-              {
-                  close => (
-                      <div class='modal'>
-                              <div class='content'>
-                                  <input 
-                                      id="title"  
-                                      type="text"
-                                      defaultValue={task.taskName}
-                                      onChange={(e) => setNewTaskName(e.target.value)}
-                                      maxlength="20"
-                                      />
-                                  <textarea 
-                                      id="desc" 
-                                      defaultValue={task.taskDesc}
-                                      onChange={(e) => setNewTaskDesc(e.target.value)} 
-                                      maxlength="160"
-                                      />
-                                  <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
-                              </div>
-                          <div>
-                          <button trigger id="edit" className="btn" type="button" onClick={() => 
-                            {
-                              handleEdit(task._id);
-                              close();
-                              }
-                            }
-                            > Edit </button>
-                          </div>
-                      </div>
-                  )
-              }
-          </Popup>
-          </div>
-        </li>
-      ))} */}
-      {/* Elements to allow users to enter new information for a task */}
+      
   
     </>
   );
