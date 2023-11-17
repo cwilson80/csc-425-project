@@ -162,8 +162,7 @@ function TaskList() {
   }
 
   return (
-    <>
-    {taskLists.map((task) => (
+    <>{taskLists.map((task) => (
             <body>
             <div id="main-container">
                 <div id="sidebar">
@@ -182,22 +181,24 @@ function TaskList() {
                             <th><span >Date</span></th>
                             <th><span >Status</span></th>
                         </tr>
-                        <tr key={task._id}>
+                        {taskLists.map((task) => (
+                        <tr>
                             <td id="task-title">
-                                <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
+                                <input type="checkbox" checked="checked"/>
                                 <span id="title-text">{task.taskName}</span>
                             </td>
                             <td><span>{task.taskDesc}</span></td>
                             <td><span>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span></td>
                             <td>
-                                <span id="status">{task.completed ? 'Completed' : 'In-Progress'}</span>
+                                <span id="status">Completed</span>
                             </td>
                         </tr>
+                        ))}
                     </table>
                 </div>
             </div>
         </body>
-    ))}
+           ))}
         {/* Button to add a new task to the list */}
       {/* Map and display the tasks to a list */}
       {/* {taskLists.map((task) => (
