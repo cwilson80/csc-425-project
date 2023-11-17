@@ -5,6 +5,9 @@ import "./App.css";
 import NewTask from './NewTask';
 import Popup from 'reactjs-popup';
 import TaskDatePicker from './TaskDatePicker';
+import { FaEdit } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa";
+
 
 function TaskList() {
   // where the retrieved tasks are stored
@@ -162,7 +165,7 @@ function TaskList() {
   }
 
   return (
-    <>{taskLists.map((task) => (
+    <>
             <body>
             <div id="main-container">
                 <div id="sidebar">
@@ -184,13 +187,47 @@ function TaskList() {
                         {taskLists.map((task) => (
                         <tr>
                             <td id="task-title">
+                                <span><FaRegTrashAlt id='delete-btn' style={{color: "#999999"}} onClick={() => handleDelete(task._id)}/></span>
+                                <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate, task.completed)} trigger={<span><FaEdit id='edit-btn' style={{color: "#999999"}}/></span>}>
+                                  {
+                                      close => (
+                                          <div class='modal'>
+                                                  <div class='content'>
+                                                      <input 
+                                                          id="title"  
+                                                          type="text"
+                                                          defaultValue={task.taskName}
+                                                          onChange={(e) => setNewTaskName(e.target.value)}
+                                                          maxlength="20"
+                                                          />
+                                                      <textarea 
+                                                          id="desc" 
+                                                          defaultValue={task.taskDesc}
+                                                          onChange={(e) => setNewTaskDesc(e.target.value)} 
+                                                          maxlength="160"
+                                                          />
+                                                      <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
+                                                  </div>
+                                              <div>
+                                              <button trigger id="edit" className="btn" type="button" onClick={() => 
+                                                {
+                                                  handleEdit(task._id);
+                                                  close();
+                                                  }
+                                                }
+                                                > Edit </button>
+                                              </div>
+                                          </div>
+                                      )
+                                  }
+                              </Popup>
                                 <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
                                 <span id="title-text">{task.taskName}</span>
                             </td>
                             <td><span>{task.taskDesc}</span></td>
                             <td><span>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span></td>
                             <td>
-                                <span id="status">{task.completed ? 'Completed' : 'In-Progress'}</span>
+                                <span id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'In-Progress'}</span>
                             </td>
                         </tr>
                         ))}
@@ -198,7 +235,6 @@ function TaskList() {
                 </div>
             </div>
         </body>
-           ))}
         {/* Button to add a new task to the list */}
       {/* Map and display the tasks to a list */}
       {/* {taskLists.map((task) => (

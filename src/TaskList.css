@@ -82,7 +82,7 @@ header {
     padding: 10px;
 }
 
-#status {
+#completed {
     padding: 5px;
     background-color: rgb(92, 139, 92);
     border-radius: 7px;
@@ -91,6 +91,23 @@ header {
     font-size: 14px;
 }
 
+#in-progress {
+    padding: 5px;
+    background-color: rgb(92, 111, 139);
+    border-radius: 7px;
+    color: white;
+    font-weight: 300;
+    font-size: 14px;
+}
+
 span {
     margin: 5px;
+}
+
+#delete-btn {
+    cursor: pointer;
+}
+
+#edit-btn {
+    cursor: pointer;
 }
