@@ -14,7 +14,7 @@ html, body {
 
 #main-container {
     height: 100vh;
-    width: fit-content;
+    width: 80%;
     margin: auto;
 }
 
@@ -50,7 +50,6 @@ table {
   }
 
 #task-container {
-    width: 80%;
     float: right;
 }
   
@@ -70,6 +69,8 @@ table {
     color: rgb(255, 255, 255);
     font-weight: 300;
     font-size: 14px;
+    height: 25px;
+    overflow: hidden;
 
   }
 
@@ -125,19 +126,12 @@ h1 {
     padding-bottom: 10px;
 }
 
-#desc {
-    background-color: rgb(44, 44, 44);
-    width:100px;
-    overflow:hidden;
-    text-overflow:ellipsis
-}
-
-.content{
-  height:15px;
-  width:100px;
+.contentDesc{
+  height: 24px;
+  width:100%;
   overflow:hidden;
   text-overflow:ellipsis
 }
 
-input[type='checkbox'] { visibility: hidden; position: absolute; }
-input[type='checkbox']:checked + .content { height: auto; width: auto;}
+#desc { visibility: hidden; position: absolute; }
+#desc:checked + .contentDesc { height: auto; width: auto;}
