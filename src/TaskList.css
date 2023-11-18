@@ -21,6 +21,7 @@ html, body {
 table {
     border-collapse: collapse;
     width: 100%;
+    table-layout: fixed
   }
 
 #sidebar {
@@ -34,10 +35,13 @@ table {
 
   ul{
     list-style: none;
+    display: table-cell;
+    vertical-align: middle;
   }
 
   li {
     padding: 10px;
+    margin-right: 0px;
   }
 
   li:hover {
@@ -46,7 +50,7 @@ table {
   }
 
 #task-container {
-    width: 88%;
+    width: 80%;
     float: right;
 }
   
@@ -55,7 +59,6 @@ table {
     color: rgb(146, 146, 146);
     border-bottom: 1px solid rgb(85, 85, 85);;
     font-weight: 500;
-    white-space:nowrap;
 
   }
 
@@ -67,7 +70,6 @@ table {
     color: rgb(255, 255, 255);
     font-weight: 300;
     font-size: 14px;
-    white-space:nowrap;
 
   }
 
@@ -125,7 +127,17 @@ h1 {
 
 #desc {
     background-color: rgb(44, 44, 44);
+    width:100px;
     overflow:hidden;
-    text-overflow:ellipsis;
-    width: 100px;
+    text-overflow:ellipsis
 }
+
+.content{
+  height:15px;
+  width:100px;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+input[type='checkbox'] { visibility: hidden; position: absolute; }
+input[type='checkbox']:checked + .content { height: auto; width: auto;}

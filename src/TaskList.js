@@ -7,7 +7,7 @@ import Popup from 'reactjs-popup';
 import TaskDatePicker from './TaskDatePicker';
 import { FaEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { FaPlusSquare } from "react-icons/fa";
+import { IoEllipsisHorizontalSharp } from "react-icons/io5";
 
 function TaskList() {
   // where the retrieved tasks are stored
@@ -37,6 +37,7 @@ function TaskList() {
   const [newTaskDesc, setNewTaskDesc] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(new Date());
   const [newCompleted, setNewCompleted] = useState(false);
+  const [width, setWidth] = useState("hidden");
 
   // definition of a task
   class taskItem {
@@ -164,6 +165,12 @@ function TaskList() {
     setNewCompleted(completed);
   }
 
+  const expandCell = () => {
+    if(width === "hidden") {
+      setWidth("expand");
+    } else setWidth("hidden");
+  }
+
   return (
     <>
             <body>
@@ -182,10 +189,10 @@ function TaskList() {
                     </div>
                     <table>
                         <tr>
-                            <th style={{width: "250px"}}><span >Task</span></th>
+                            <th><span >Task</span></th>
                             <th><span>Description</span></th>
-                            <th style={{width: "150px"}}><span >Date</span></th>
-                            <th style={{width: "80px"}}><span >Status</span></th>
+                            <th><span >Date</span></th>
+                            <th><span >Status</span></th>
                         </tr>
                         {taskLists.map((task) => (
                         <tr>
@@ -227,7 +234,12 @@ function TaskList() {
                                 <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
                                 <span id="title-text">{task.taskName}</span>
                             </td>
-                            <td><span className='desc'>{task.taskDesc}</span></td>
+                            {/* <td><span className='desc'>{task.taskDesc}</span></td> */}
+                            <td><label><input type="checkbox" /><div class="content">
+                              <span className='content'>{task.taskDesc}</span>
+                                </div>
+                                </label>
+                                </td>
                             <td><span>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span></td>
                             <td>
                                 <span id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'Current'}</span>
