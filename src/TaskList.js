@@ -8,6 +8,7 @@ import TaskDatePicker from './TaskDatePicker';
 import { FaEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { TbCircleCheck } from "react-icons/tb";
+import { TbProgress } from "react-icons/tb";
 
 function TaskList() {
   // where the retrieved tasks are stored
@@ -249,7 +250,8 @@ function TaskList() {
                             <td><span>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span></td>
                             <td>
                                 <span id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'Current'}</span>
-                                <span id="complete-icon"><TbCircleCheck/>testub</span>
+                                <span id="complete-icon"><TbCircleCheck size={20}/></span>
+                                <span id="progress-icon"><TbProgress size={20}/></span>
                             </td>
                         </tr>
                         ))}

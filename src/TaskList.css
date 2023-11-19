@@ -93,7 +93,6 @@ h3 {
     color: white;
     font-weight: 300;
     font-size: 14px;
-    position: relative;
 }
 
 #in-progress {
@@ -106,16 +105,45 @@ h3 {
 }
 
 #complete-icon {
-  position: absolute;
   display: none;
+  background-color: rgb(92, 139, 92);
+  width: fit-content;
+  padding: 2px;
+  border-radius: 5px;
+  vertical-align: middle;
 }
+
+#progress-icon {
+  display: none;
+  background-color: rgb(25, 109, 219);
+  width: fit-content;
+  padding: 2px;
+  border-radius: 5px;
+  vertical-align: middle;
+}
+
 
 
 @media only screen and (max-width: 600px) {
-  #completed-icon {
-    display: block;
+  #complete-icon {
+    display: flex !important;
+  }
+
+  #completed {
+    display: none;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  #progress-icon {
+    display: flex !important;
+  }
+
+  #in-progress {
+    display: none;
+  }
+}
+
 
 span {
     margin: 5px;
