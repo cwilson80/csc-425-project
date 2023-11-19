@@ -71,7 +71,6 @@ table {
     font-size: 14px;
     height: 25px;
     overflow: hidden;
-
   }
 
   #task-title {
@@ -94,6 +93,7 @@ h3 {
     color: white;
     font-weight: 300;
     font-size: 14px;
+    position: relative;
 }
 
 #in-progress {
@@ -103,6 +103,18 @@ h3 {
     color: white;
     font-weight: 300;
     font-size: 14px;
+}
+
+#complete-icon {
+  position: absolute;
+  display: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+  #completed-icon {
+    display: block;
+  }
 }
 
 span {
@@ -127,11 +139,32 @@ h1 {
 }
 
 .contentDesc{
-  height: 24px;
+  vertical-align: text-bottom;
   width:100%;
   overflow:hidden;
-  text-overflow:ellipsis
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 
-#desc { visibility: hidden; position: absolute; }
-#desc:checked + .contentDesc { height: auto; width: auto;}
+#descInput { visibility: hidden; position: absolute; }
+#descInput:checked + .contentDesc{
+   height: auto; 
+   width: auto;
+   white-space: inherit;
+   padding: 7px;
+  }
+
+
+  .modal {
+    background-color: rgb(53, 53, 53);
+    border-radius: 5px;
+    padding: 10px;
+
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+

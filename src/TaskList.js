@@ -7,7 +7,7 @@ import Popup from 'reactjs-popup';
 import TaskDatePicker from './TaskDatePicker';
 import { FaEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { FaRegCaretSquareDown } from "react-icons/fa";
+import { TbCircleCheck } from "react-icons/tb";
 
 function TaskList() {
   // where the retrieved tasks are stored
@@ -37,7 +37,6 @@ function TaskList() {
   const [newTaskDesc, setNewTaskDesc] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(new Date());
   const [newCompleted, setNewCompleted] = useState(false);
-  const [width, setWidth] = useState("hidden");
 
   // definition of a task
   class taskItem {
@@ -165,13 +164,6 @@ function TaskList() {
     setNewCompleted(completed);
   }
 
-  const expandCell = () => {
-    console.log("hello");
-    if(width === "hidden") {
-      setWidth("expand");
-    } else setWidth("hidden");
-  }
-
   return (
     <>
             <body>
@@ -235,19 +227,13 @@ function TaskList() {
                                 <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
                                 <span id="title-text">{task.taskName}</span>
                             </td>
-                            {/* <td><span className='desc'>{task.taskDesc}</span></td> */}
-                            {/* <td>
-                              <div class="content">
-                                <span className={width}>{task.taskDesc}</span>
-                                <IoEllipsisHorizontalSharp className="overflow-icon" onClick={expandCell}/>
-                              </div>
-                            </td> */}
-                            <td><label><input id="desc" type="checkbox" /><div class="contentDesc"><span class="hidden">{task.taskDesc}</span>
-                                    </div></label>
+                            <td><label><input id="descInput" type="checkbox" /><div class="contentDesc">{task.taskDesc}
+                            </div></label>
                             </td>
                             <td><span>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span></td>
                             <td>
                                 <span id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'Current'}</span>
+                                <span id="complete-icon"><TbCircleCheck/>testub</span>
                             </td>
                         </tr>
                         ))}
