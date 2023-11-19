@@ -143,10 +143,26 @@ function TaskList() {
     setNewTaskDate(date);
   }
 
-  const handleComplete = (t) => {
-    t.completed = !t.completed;
-    setTaskList((prev) => [...prev]);
-}
+  const handleComplete = async (t) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/tasks/${t._id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          completed: !t.completed
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const updatedTask = await response.json();
+      setTaskList(taskLists.map((task) => (task._id === t._id ? updatedTask : task)));
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
+  }
 
 
 
