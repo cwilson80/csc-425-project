@@ -144,6 +144,16 @@ h3 {
   }
 }
 
+.hidden {
+  background-color: aliceblue;
+}
+
+.see {
+  background-color: aqua;
+}
+
+
+
 
 span {
     margin: 5px;

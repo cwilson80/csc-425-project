@@ -250,8 +250,7 @@ function TaskList() {
                             <td><span>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span></td>
                             <td>
                                 <span id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'Current'}</span>
-                                <span id="complete-icon"><TbCircleCheck size={20}/></span>
-                                <span id="progress-icon"><TbProgress size={20}/></span>
+                                <span>{task.completed ? <TbCircleCheck size={20} id="complete-icon"/> : <TbProgress size={20} id="progress-icon"/>}</span>
                             </td>
                         </tr>
                         ))}
