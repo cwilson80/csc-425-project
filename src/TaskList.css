@@ -21,8 +21,41 @@ html, body {
 table {
     border-collapse: collapse;
     width: 100%;
-    table-layout: fixed
+    table-layout:fixed
   }
+
+  #title-column {
+    
+  }
+
+  #desc-column {
+  }
+
+  #date-column {
+    width: 160px;
+    
+  }
+
+  #date-format {
+    text-decoration: underline;
+    width: 200px;
+  }
+
+  #status-column {
+    width: 100px;
+  }
+
+  @media only screen and (max-width: 700px) {
+    #status-column {
+      width: 35px;
+    }
+
+    #date-column {
+      width: 50px;
+    }
+  }  
+
+
 
 #sidebar {
     float: left;
@@ -49,9 +82,9 @@ table {
     transition: 0.5s;
   }
 
-#task-container {
-    float: right;
-}
+  #task-container {
+      float: right;
+  }
   
   th {
     text-align: left;
@@ -76,6 +109,7 @@ table {
   #task-title {
     font-weight: 500;
     height: 35px;
+    width: 350px;
   }
   
   #title-text {
@@ -93,6 +127,7 @@ h3 {
     color: white;
     font-weight: 300;
     font-size: 14px;
+    width: 1000px;
 }
 
 #in-progress {
@@ -122,9 +157,7 @@ h3 {
   vertical-align: middle;
 }
 
-
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
   #complete-icon {
     display: flex !important;
   }
@@ -134,7 +167,7 @@ h3 {
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
   #progress-icon {
     display: flex !important;
   }
@@ -143,17 +176,6 @@ h3 {
     display: none;
   }
 }
-
-.hidden {
-  background-color: aliceblue;
-}
-
-.see {
-  background-color: aqua;
-}
-
-
-
 
 span {
     margin: 5px;
@@ -182,6 +204,7 @@ h1 {
   overflow:hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 #descInput { visibility: hidden; position: absolute; }
@@ -204,5 +227,4 @@ h1 {
     display: flex;
     flex-direction: column;
 }
-
 

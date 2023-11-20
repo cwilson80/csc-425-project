@@ -9,6 +9,8 @@ import { FaEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { TbCircleCheck } from "react-icons/tb";
 import { TbProgress } from "react-icons/tb";
+import dateFormat, { masks } from "dateformat";
+
 
 function TaskList() {
   // where the retrieved tasks are stored
@@ -20,6 +22,7 @@ function TaskList() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setDateFormat(dateFormat(taskItem.dueDate, "mmmm dS, yyyy"));
         setTaskList(data);
       })
       .catch((err) => {
@@ -38,6 +41,7 @@ function TaskList() {
   const [newTaskDesc, setNewTaskDesc] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(new Date());
   const [newCompleted, setNewCompleted] = useState(false);
+  const [newDateFormat, setDateFormat] = useState();
 
   // definition of a task
   class taskItem {
@@ -55,7 +59,6 @@ function TaskList() {
    * 
    * @param {*} _id The id of the task that's going to be edited
    */
-
   const handleEdit = async (_id) => {
     try {
       const response = await fetch(`http://localhost:3001/api/tasks/${_id}`, {
@@ -181,6 +184,23 @@ function TaskList() {
     setNewCompleted(completed);
   }
 
+  useEffect( () => {
+    const setWidth = () => {
+      if(window.innerWidth > 700) {
+        setDateFormat(dateFormat(taskItem.dueDate, "mmmm dS, yyyy"));
+       // document.getElementById("date-format").style.width = "250px";
+      } else {
+        setDateFormat("" + dateFormat(taskItem.dueDate, "m") + "/" + dateFormat(taskItem.dueDate, "d"));
+        // document.getElementById("date-format").style.width = "50px";
+      }
+    }
+    window.addEventListener('resize', setWidth)
+  })
+
+
+// This above is the function im using. I know it should pass the task based on its id but how to I do that if there no event like a click or change
+
+
   return (
     <>
             <body>
@@ -199,10 +219,10 @@ function TaskList() {
                     </div>
                     <table>
                         <tr>
-                            <th><span >Task</span></th>
-                            <th><span>Description</span></th>
-                            <th><span >Date</span></th>
-                            <th><span >Status</span></th>
+                            <th id="title-column"><span>Task</span></th>
+                            <th id="desc-column"><span>Description</span></th>
+                            <th id="date-column"><span >Date</span></th>
+                            <th id="status-column"><span >Status</span></th>
                         </tr>
                         {taskLists.map((task) => (
                         <tr>
@@ -247,7 +267,12 @@ function TaskList() {
                             <td><label><input id="descInput" type="checkbox" /><div class="contentDesc">{task.taskDesc}
                             </div></label>
                             </td>
-                            <td><span>{task.dueDate ? new Date(task.dueDate).toDateString("en-US") : 'No date'}</span></td>
+                            <td>
+                              <span id="date-format">
+                                  {newDateFormat}
+                              </span>
+                              {/* This is the date and it changes format depending on size and so does the column size */}
+                            </td>
                             <td>
                                 <span id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'Current'}</span>
                                 <span>{task.completed ? <TbCircleCheck size={20} id="complete-icon"/> : <TbProgress size={20} id="progress-icon"/>}</span>
@@ -258,8 +283,6 @@ function TaskList() {
                 </div>
             </div>
         </body>
-      
-  
     </>
   );
 }
