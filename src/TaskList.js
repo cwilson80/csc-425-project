@@ -197,15 +197,6 @@ function TaskList() {
     window.addEventListener('resize', setWidth)
   })
 
-  function formatTheDate(tDate) {
-    if(window.innerWidth > 700) {
-      return dateFormat(tDate, "mmmm dS, yyyy");
-     // document.getElementById("date-format").style.width = "250px";
-    } else {
-      return dateFormat(tDate, "m") + "/" + dateFormat(tDate, "d");
-      // document.getElementById("date-format").style.width = "50px";
-    }
-  }
 
 // This above is the function im using. I know it should pass the task based on its id but how to I do that if there no event like a click or change
 
@@ -278,7 +269,7 @@ function TaskList() {
                             </td>
                             <td>
                               <span id="date-format">
-                                  {formatTheDate(task.dueDate)}
+                                  {newDateFormat}
                               </span>
                               {/* This is the date and it changes format depending on size and so does the column size */}
                             </td>
