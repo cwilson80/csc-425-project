@@ -10,7 +10,8 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { TbCircleCheck } from "react-icons/tb";
 import { TbProgress } from "react-icons/tb";
 import dateFormat, { masks } from "dateformat";
-import { RiPlayListAddFill } from "react-icons/ri";
+import { FaBars } from "react-icons/fa";
+
 
 
 function TaskList() {
@@ -278,32 +279,31 @@ function TaskList() {
                                     {task.taskName}
                                   </span>
                                   </div>
-                                  
-                                  <div id='title-column-desc' className='table-cell'>
-                                  {task.taskDesc}
-                                  </div>
-
-
                                 {/* <RiPlayListAddFill id="dropdown"/> */}
                                 <div id="mobile-title-width" className='table-cell'>
-                                  <Popup modal position="center center" trigger={<span></span>}>
-                                  {
-                                      close => (
-                                          <div class='mobile-modal'>
-                                                  <div class='mobile-content'>
-                                                      <button className='btn-modal'>Edit</button>
-                                                      <button className='btn-modal'>Remove</button>
-                                                      <button className='btn-modal'>Complete</button>
-                                              </div>
-                                          </div>
-                                      )
-                                  }
-                                  </Popup>
-                                  <span id="title-text" className='table-cell'>
-                                    {task.taskName}
-                                  </span>
-                                  <br/>
-                                  <div id='title-column-desc' className='table-cell'>
+                                  <div id='phone-width'>
+                                    <Popup modal trigger={<span><FaBars id="options-mobile"/></span>}>
+                                    {
+                                        close => (
+                                            <div class='mobile-modal'>
+                                                    <div class='mobile-content'>
+                                                        <button id="mobile-delete" className='btn-modal' onClick={() => handleDelete(task._id)}><FaRegTrashAlt id='delete-btn'/>Remove</button>
+                                                        <button id="mobile-edit" className='btn-modal'><FaEdit id='edit-btn'/>Edit</button>
+                                                        <button className='btn-modal' id={task.completed ? 'mobile-complete-icon' : 'mobile-progress-icon'} onClick={() => {handleComplete(task); close();}}><span className='table-cell'>
+                                                          {task.completed ? "Mark As In-Progress" : "Mark As Complete"}
+                                                          {task.completed ? <TbProgress size={20} id="progress-icon" className='mobile-icons-style'/> : <TbCircleCheck size={16} id="complete-icon" className='mobile-icons-style'/>}
+                                                          </span>
+                                                        </button>
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                    </Popup>
+                                    <span id='phone-width-title'>
+                                      {task.taskName}
+                                    </span>
+                                    </div>
+                                  <div id='title-column-desc'>
                                   {task.taskDesc}
                                 </div>
                               </div>
