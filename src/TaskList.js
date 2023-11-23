@@ -10,11 +10,11 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { TbCircleCheck } from "react-icons/tb";
 import { TbProgress } from "react-icons/tb";
 import dateFormat, { masks } from "dateformat";
+import { RiPlayListAddFill } from "react-icons/ri";
 
 
 function TaskList() {
   // where the retrieved tasks are stored
-  const [posts, setPosts] = useState([]);
 
   // fetches the tasks from the database, placeholder url until further notice
   useEffect(() => {
@@ -170,6 +170,8 @@ function TaskList() {
 
 
 
+
+
   /**
    * Sets the values to be used in edit
    * 
@@ -190,7 +192,7 @@ function TaskList() {
         setDateFormat(dateFormat(taskItem.dueDate, "mmmm dS, yyyy"));
        // document.getElementById("date-format").style.width = "250px";
       } else {
-        setDateFormat("" + dateFormat(taskItem.dueDate, "m") + "/" + dateFormat(taskItem.dueDate, "d"));
+        setDateFormat("" + dateFormat(taskItem.dueDate, "mm") + "/" + dateFormat(taskItem.dueDate, "d") + "/" + dateFormat(taskItem.dueDate, "yy"));
         // document.getElementById("date-format").style.width = "50px";
       }
     }
@@ -198,6 +200,15 @@ function TaskList() {
   })
 
 
+  function formatTheDate(tDate) {
+    if(window.innerWidth > 700) {
+      return dateFormat(tDate, "mmmm dS, yyyy");
+     // document.getElementById("date-format").style.width = "250px";
+    } else {
+      return dateFormat(tDate, "m") + "/" + dateFormat(tDate, "d") + "/" + dateFormat(tDate, "yy");
+      // document.getElementById("date-format").style.width = "50px";
+    }
+  }
 // This above is the function im using. I know it should pass the task based on its id but how to I do that if there no event like a click or change
 
 
@@ -214,7 +225,7 @@ function TaskList() {
                 </div> */}
                     <div id="task-container">
                     <div id='header'>
-                      <h1>All Tasks</h1>
+                      <h1>lil' task</h1>
                       <NewTask onTaskAdd={handleAddTask}/>
                     </div>
                     <table>
@@ -227,7 +238,8 @@ function TaskList() {
                         {taskLists.map((task) => (
                         <tr>
                             <td id="task-title">
-                                <span><FaRegTrashAlt id='delete-btn' style={{color: "#999999"}} onClick={() => handleDelete(task._id)}/></span>
+                              <div id="desktop-title-width">
+                                <FaRegTrashAlt id='delete-btn' style={{color: "#999999"}} onClick={() => handleDelete(task._id)}/>
                                 <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate, task.completed)} trigger={<span><FaEdit id='edit-btn' style={{color: "#999999"}}/></span>}>
                                   {
                                       close => (
@@ -261,21 +273,56 @@ function TaskList() {
                                       )
                                   }
                               </Popup>
-                                <input type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/>
-                                <span id="title-text">{task.taskName}</span>
+                                  <label><input id="complete-check-style" type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/></label>
+                                  <span className='table-cell'>
+                                    {task.taskName}
+                                  </span>
+                                  </div>
+                                  
+                                  <div id='title-column-desc' className='table-cell'>
+                                  {task.taskDesc}
+                                  </div>
+
+
+                                {/* <RiPlayListAddFill id="dropdown"/> */}
+                                <div id="mobile-title-width" className='table-cell'>
+                                  <Popup modal position="center center" trigger={<span></span>}>
+                                  {
+                                      close => (
+                                          <div class='mobile-modal'>
+                                                  <div class='mobile-content'>
+                                                      <button className='btn-modal'>Edit</button>
+                                                      <button className='btn-modal'>Remove</button>
+                                                      <button className='btn-modal'>Complete</button>
+                                              </div>
+                                          </div>
+                                      )
+                                  }
+                                  </Popup>
+                                  <span id="title-text" className='table-cell'>
+                                    {task.taskName}
+                                  </span>
+                                  <br/>
+                                  <div id='title-column-desc' className='table-cell'>
+                                  {task.taskDesc}
+                                </div>
+                              </div>
                             </td>
-                            <td><label><input id="descInput" type="checkbox" /><div class="contentDesc">{task.taskDesc}
-                            </div></label>
-                            </td>
-                            <td>
-                              <span id="date-format">
-                                  {newDateFormat}
-                              </span>
+                            <td id="test">
+                                  <label>
+                                    <input id="descInput" type="checkbox" />
+                                    <div className="contentDesc">{task.taskDesc}</div>
+                                  </label>
+                                </td>
+                            <td className="table-cell">
+                              <span id="date-format" className='table-cell'>
+                              {formatTheDate(task.dueDate)}
+                                                            </span>
                               {/* This is the date and it changes format depending on size and so does the column size */}
                             </td>
-                            <td>
-                                <span id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'Current'}</span>
-                                <span>{task.completed ? <TbCircleCheck size={20} id="complete-icon"/> : <TbProgress size={20} id="progress-icon"/>}</span>
+                            <td id="parent-status" className="table-border-right">
+                                <span className='table-cell' id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'In-Progress'}</span>
+                                <span className='table-cell'>{task.completed ? <TbCircleCheck size={20} id="complete-icon"/> : <TbProgress size={20} id="progress-icon"/>}</span>
                             </td>
                         </tr>
                         ))}
