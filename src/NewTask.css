@@ -6,7 +6,7 @@ body {
 
 input {
     padding: 5px;
-    font-size: 25px;
+    font-size: 15px;
     font-family: 'Roboto', sans-serif;
 
 }
@@ -14,7 +14,7 @@ input {
 textarea {
     padding: 5px;
     resize: none;
-    height: 300px;
+    height: 100px;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
     background-color: grey;
@@ -35,6 +35,7 @@ textarea:focus, input:focus{
 .content {
     display: flex;
     flex-direction: column;
+    width: 300px;
 }
 
 
@@ -57,11 +58,12 @@ textarea:focus, input:focus{
 .btn {
     color: rgb(255, 255, 255);
     padding: 8px;
-    border-radius: 10px;
+    border-radius: 5px;
     border: none;
     transition: 0.3s;
     background-color: rgb(0, 85, 197);
     margin-top: 5px;
+    width: 100%;
 }
 
 
@@ -93,4 +95,36 @@ textarea:focus, input:focus{
     padding: 0px;
     vertical-align: text-top;
 
+}
+
+button {
+    background-color: rgb(77, 77, 77);
+    outline: none;
+    border: none;
+    color: white;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+button:hover {
+    opacity: 0.2s;
+}
+
+#calender {
+    color: rgb(192, 192, 192);
+}
+
+#calender-container {
+    background-color: rgb(82, 82, 82);
+    padding: 5px;
+    border-radius: 5px;
+    color: rgb(192, 192, 192);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#calandar-container:hover {
+    opacity: 0.9s;
 }

@@ -3,6 +3,7 @@ import './NewTask.css';
 import Popup from "reactjs-popup";
 import TaskDatePicker from './TaskDatePicker.js';
 import { BsPlusSquareFill } from "react-icons/bs";
+import { FaCalendarDays } from "react-icons/fa6";
 
 
 const NewTask = ({onTaskAdd}) => {
@@ -54,7 +55,7 @@ const NewTask = ({onTaskAdd}) => {
                                         onChange={(e) => setDescription(e.target.value)}
                                         maxlength="160"
                                         />
-                                    <TaskDatePicker value={dueDate} id="date" onClosingDatePicker={handleClosingDatePicker}/>
+                                    <div id="calender-container"><FaCalendarDays id="calender"/><TaskDatePicker value={dueDate} id="date" onClosingDatePicker={handleClosingDatePicker}/></div>
                                 </div>
                             <div>
                                 <button trigger className="btn" type="submit" onClick=

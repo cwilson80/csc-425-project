@@ -1,6 +1,6 @@
 import './TaskList.css';
 import React from 'react';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import NewTask from './NewTask';
 import Popup from 'reactjs-popup';
@@ -11,7 +11,8 @@ import { TbCircleCheck } from "react-icons/tb";
 import { TbProgress } from "react-icons/tb";
 import dateFormat, { masks } from "dateformat";
 import { FaBars } from "react-icons/fa";
-
+import { FaCalendarDays } from "react-icons/fa6";
+import { TbTextPlus } from "react-icons/tb";
 
 
 function TaskList() {
@@ -188,17 +189,41 @@ function TaskList() {
   }
 
   useEffect( () => {
-    const setWidth = () => {
-      if(window.innerWidth > 700) {
-        setDateFormat(dateFormat(taskItem.dueDate, "mmmm dS, yyyy"));
-       // document.getElementById("date-format").style.width = "250px";
-      } else {
-        setDateFormat("" + dateFormat(taskItem.dueDate, "mm") + "/" + dateFormat(taskItem.dueDate, "d") + "/" + dateFormat(taskItem.dueDate, "yy"));
-        // document.getElementById("date-format").style.width = "50px";
+    function checkOverflow() {       
+      if(document.getElementById("detectOverflow")) {
+        if (check(tableCellOverflow)) { 
+            console.log("overflow"); 
+        }  else {
+          console.log("no overflow")
+        }                 
       }
+  
+      else if(document.getElementById("detectOverflow")) {
+            console.log("no-overflow");   
+      }
+  }     
+    if(document.getElementById("detectOverflow")) {
+      window.addEventListener('resize', checkOverflow);
     }
-    window.addEventListener('resize', setWidth)
   })
+
+
+  var tableCellOverflow = document.getElementById("detectOverflow"); 
+               
+  function check(e) { 
+    if(e != null) {
+      var overflowState = e.style.overflow;  
+      if ( !overflowState || overflowState === "visible" ) 
+          e.style.overflow = "hidden"; 
+      var isOverflowing = e.clientWidth < e.scrollWidth || e.clientHeight < e.scrollHeight; 
+      e.style.overflow = overflowState; 
+      return isOverflowing; 
+    }
+    else {
+      return false;
+    }
+  } 
+
 
 
   function formatTheDate(tDate) {
@@ -243,7 +268,7 @@ function TaskList() {
                                 <FaRegTrashAlt id='delete-btn' style={{color: "#999999"}} onClick={() => handleDelete(task._id)}/>
                                 <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate, task.completed)} trigger={<span><FaEdit id='edit-btn' style={{color: "#999999"}}/></span>}>
                                   {
-                                      close => (
+                               closeEdit => (
                                           <div class='modal'>
                                                   <div class='content'>
                                                       <input 
@@ -259,19 +284,19 @@ function TaskList() {
                                                           onChange={(e) => setNewTaskDesc(e.target.value)} 
                                                           maxlength="160"
                                                           />
-                                                      <TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/>
+                                                      <div id="calender-container"><FaCalendarDays id="calender"/><TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/></div>
                                                   </div>
                                               <div>
                                               <button trigger id="edit" className="btn" type="button" onClick={() => 
                                                 {
                                                   handleEdit(task._id);
-                                                  close();
+                                                  closeEdit();
                                                   }
                                                 }
                                                 > Edit </button>
                                               </div>
                                           </div>
-                                      )
+                                )
                                   }
                               </Popup>
                                   <label><input id="complete-check-style" type="checkbox" checked={task.completed} onChange={() => handleComplete(task)}/></label>
@@ -282,13 +307,46 @@ function TaskList() {
                                 {/* <RiPlayListAddFill id="dropdown"/> */}
                                 <div id="mobile-title-width" className='table-cell'>
                                   <div id='phone-width'>
-                                    <Popup modal trigger={<span><FaBars id="options-mobile"/></span>}>
+                                    <Popup nested modal trigger={<span><FaBars id="options-mobile" /></span>}>
                                     {
                                         close => (
                                             <div class='mobile-modal'>
                                                     <div class='mobile-content'>
-                                                        <button id="mobile-delete" className='btn-modal' onClick={() => handleDelete(task._id)}><FaRegTrashAlt id='delete-btn'/>Remove</button>
-                                                        <button id="mobile-edit" className='btn-modal'><FaEdit id='edit-btn'/>Edit</button>
+                                                        <button id="mobile-delete" className='btn-modal' onClick={() => {handleDelete(task._id)}}><FaRegTrashAlt id='delete-btn'/>Remove</button>
+                                                        
+                                                        <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate, task.completed)} trigger={<button id="mobile-edit" className='btn-modal'><FaEdit id='edit-btn'/>Edit</button>}>
+                                                                  {
+                                                                      closeEdit => (
+                                                                          <div class='modal'>
+                                                                                  <div class='content'>
+                                                                                      <input 
+                                                                                          id="title"  
+                                                                                          type="text"
+                                                                                          defaultValue={task.taskName}
+                                                                                          onChange={(e) => setNewTaskName(e.target.value)}
+                                                                                          maxlength="20"
+                                                                                          />
+                                                                                      <textarea 
+                                                                                          id="desc" 
+                                                                                          defaultValue={task.taskDesc}
+                                                                                          onChange={(e) => setNewTaskDesc(e.target.value)} 
+                                                                                          maxlength="160"
+                                                                                          />
+                                                                                    <div id="calender-container"><FaCalendarDays id="calender"/><TaskDatePicker onClosingDatePicker={handleClosingDatePicker}/></div>
+                                                                                  </div>
+                                                                              <div>
+                                                                              <button trigger id="edit" className="btn" type="button" onClick={() => 
+                                                                                {
+                                                                                  handleEdit(task._id);
+                                                                                  closeEdit();
+                                                                                  }
+                                                                                }
+                                                                                > Edit </button>
+                                                                              </div>
+                                                                          </div>
+                                                                      )
+                                                                  }
+                                                        </Popup>
                                                         <button className='btn-modal' id={task.completed ? 'mobile-complete-icon' : 'mobile-progress-icon'} onClick={() => {handleComplete(task); close();}}><span className='table-cell'>
                                                           {task.completed ? "Mark As In-Progress" : "Mark As Complete"}
                                                           {task.completed ? <TbProgress size={20} id="progress-icon" className='mobile-icons-style'/> : <TbCircleCheck size={16} id="complete-icon" className='mobile-icons-style'/>}
@@ -311,7 +369,7 @@ function TaskList() {
                             <td id="test">
                                   <label>
                                     <input id="descInput" type="checkbox" />
-                                    <div className="contentDesc">{task.taskDesc}</div>
+                                    <div id="detectOverflow" className="contentDesc">{task.taskDesc}</div>
                                   </label>
                                 </td>
                             <td className="table-cell">
