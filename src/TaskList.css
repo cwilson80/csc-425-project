@@ -45,7 +45,7 @@ table {
     width: 100px;
   }
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 1000px) {
     #status-column {
       width: 25px;
     }
@@ -53,39 +53,13 @@ table {
     #date-column {
       width: 70px;
     }
+
+    #test {
+      display: none;
+    }
   }  
 
 
-
-#sidebar {
-    float: left;
-    background-color: rgb(75, 75, 75);
-    color: white;
-    height: 100%;
-    display: inline;
-    width: 10%;
-  }
-
-  ul{
-    list-style: none;
-    display: table-cell;
-    vertical-align: middle;
-  }
-
-  li {
-    padding: 10px;
-    margin-right: 0px;
-  }
-
-  li:hover {
-    background-color: black;
-    transition: 0.5s;
-  }
-
-  #task-container {
-      float: right;
-  }
-  
   th {
     text-align: left;
     color: rgb(146, 146, 146);
@@ -176,9 +150,9 @@ h3 {
   height: auto;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 1000px) {
   #complete-icon {
-    display: flex;
+    display: block;
   }
 
 
@@ -193,7 +167,7 @@ h3 {
   margin: 5px;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 1000px) {
   #progress-icon {
     display: flex !important;
   }
@@ -206,7 +180,6 @@ h3 {
 
 #delete-btn {
   padding: 2px;
-  vertical-align: text-bottom;
   cursor: pointer;
   border-radius: 2px;
   margin-right: 5px;
@@ -252,6 +225,19 @@ h1 {
   white-space: nowrap;
   cursor: pointer;
   word-break: break-all;
+  display: inline-block;
+  width: 100%;
+}
+
+#gap {
+  width: 20px;
+  background-color: rgb(88, 88, 88);
+  height: 15px;
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 8px;
+  vertical-align:middle;
+  border-radius: 2px;
 }
 
 
@@ -261,15 +247,12 @@ h1 {
    white-space: inherit;
    margin-top: 10px;
    margin-bottom: 10px;
+   display: block;
   }
 
-#detectOverflow {
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-}
-
-
+  #gap:checked {
+    height: 100%;
+  }
 
   .modal {
     background-color: rgb(53, 53, 53);
@@ -307,11 +290,6 @@ h1 {
 }
 
 
-#test:hover {
-  transition: 0.2s;
-  background-color: rgb(56, 56, 56);
-}
-
 .table-border-right {
   border-right: none;
 }
@@ -321,9 +299,6 @@ h1 {
     display: none;
   }
 
-  #test {
-    display: none;
-  }
 
   #title-column {
     width: fit-content;
@@ -491,3 +466,48 @@ h1 {
   display: inline-block;
   position: relative;
 }
+
+#detectOverflowIcon {
+  background-color: #383838;
+  padding: 5px;
+}
+
+#detectOverflowIcon:hover {
+  transition: 0.2s;
+  background-color: rgb(56, 56, 56);
+}
+
+#desc-container {
+}
+
+#detectOverFlowIcon-container {
+  width: 10%;
+}
+
+#gap {
+  width: 20px;
+  background-color: rgb(88, 88, 88);
+  height: 15px;
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 8px;
+  vertical-align:middle;
+  border-radius: 2px;
+}
+
+#modal-complete-icon {
+  background-color: rgb(25, 109, 219);
+  vertical-align: text-bottom;
+  cursor: pointer;
+  margin-right: 5px;
+
+
+}
+
+#modal-progress-icon {
+  background-color: rgb(92, 139, 92);
+  vertical-align: text-bottom;
+  cursor: pointer;
+  margin-right: 5px;
+}
+

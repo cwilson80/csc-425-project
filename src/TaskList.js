@@ -13,6 +13,8 @@ import dateFormat, { masks } from "dateformat";
 import { FaBars } from "react-icons/fa";
 import { FaCalendarDays } from "react-icons/fa6";
 import { TbTextPlus } from "react-icons/tb";
+import { MdExpandMore } from "react-icons/md";
+
 
 
 function TaskList() {
@@ -189,6 +191,7 @@ function TaskList() {
   }
 
   useEffect( () => {
+
     function checkOverflow() {       
       if(document.getElementById("detectOverflow")) {
         if (check(tableCellOverflow)) { 
@@ -205,6 +208,21 @@ function TaskList() {
     if(document.getElementById("detectOverflow")) {
       window.addEventListener('resize', checkOverflow);
     }
+    window.addEventListener('resize', checkOverflow);
+  
+  
+    const setWidth = () => {
+      if(window.innerWidth > 1000) {
+        setDateFormat(dateFormat(taskItem.dueDate, "mmmm dS, yyyy"));
+       // document.getElementById("date-format").style.width = "250px";
+      } else {
+        setDateFormat("" + dateFormat(taskItem.dueDate, "mm") + "/" + dateFormat(taskItem.dueDate, "d") + "/" + dateFormat(taskItem.dueDate, "yy"));
+        // document.getElementById("date-format").style.width = "50px";
+
+      }
+    }
+    window.addEventListener('resize', setWidth)
+
   })
 
 
@@ -225,9 +243,8 @@ function TaskList() {
   } 
 
 
-
   function formatTheDate(tDate) {
-    if(window.innerWidth > 700) {
+    if(window.innerWidth > 1000) {
       return dateFormat(tDate, "mmmm dS, yyyy");
      // document.getElementById("date-format").style.width = "250px";
     } else {
@@ -235,7 +252,6 @@ function TaskList() {
       // document.getElementById("date-format").style.width = "50px";
     }
   }
-// This above is the function im using. I know it should pass the task based on its id but how to I do that if there no event like a click or change
 
 
   return (
@@ -347,10 +363,9 @@ function TaskList() {
                                                                       )
                                                                   }
                                                         </Popup>
-                                                        <button className='btn-modal' id={task.completed ? 'mobile-complete-icon' : 'mobile-progress-icon'} onClick={() => {handleComplete(task); close();}}><span className='table-cell'>
-                                                          {task.completed ? "Mark As In-Progress" : "Mark As Complete"}
-                                                          {task.completed ? <TbProgress size={20} id="progress-icon" className='mobile-icons-style'/> : <TbCircleCheck size={16} id="complete-icon" className='mobile-icons-style'/>}
-                                                          </span>
+                                                        <button className='btn-modal' id={task.completed ? 'mobile-complete-icon' : 'mobile-progress-icon'} onClick={() => {handleComplete(task); close();}}>
+                                                          {task.completed ? <TbProgress size={20} id="modal-complete-icon" className='mobile-icons-style'/> : <TbCircleCheck size={16} id="modal-progress-icon" className='mobile-icons-style'/>}
+                                                            {task.completed ? "Mark As In-Progress" : "Mark As Complete"}
                                                         </button>
                                                 </div>
                                             </div>
@@ -369,7 +384,7 @@ function TaskList() {
                             <td id="test">
                                   <label>
                                     <input id="descInput" type="checkbox" />
-                                    <div id="detectOverflow" className="contentDesc">{task.taskDesc}</div>
+                                    <div id="detectOverflow" className="contentDesc"><MdExpandMore id='gap'/><span>{task.taskDesc}</span></div>
                                   </label>
                                 </td>
                             <td className="table-cell">
@@ -380,7 +395,7 @@ function TaskList() {
                             </td>
                             <td id="parent-status" className="table-border-right">
                                 <span className='table-cell' id={task.completed ? 'completed' : 'in-progress'}>{task.completed ? 'Completed' : 'In-Progress'}</span>
-                                <span className='table-cell'>{task.completed ? <TbCircleCheck size={20} id="complete-icon"/> : <TbProgress size={20} id="progress-icon"/>}</span>
+                                <span className='table-cell'>{task.completed ? <TbCircleCheck size={20} className="modal-icon" id="complete-icon"/> : <TbProgress size={20}  className="modal-icon" id="progress-icon"/>}</span>
                             </td>
                         </tr>
                         ))}
