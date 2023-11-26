@@ -504,3 +504,11 @@ h1 {
   display: none;
   visibility: hidden;
 }
+
+#anvil {
+  size: 20px;
+  vertical-align: text-bottom;
+  color: #5e5e5e;
+  margin-right: 5px;
+  
+}

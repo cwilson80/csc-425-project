@@ -14,6 +14,7 @@ import { FaBars } from "react-icons/fa";
 import { FaCalendarDays } from "react-icons/fa6";
 import { TbTextPlus } from "react-icons/tb";
 import { MdExpandMore } from "react-icons/md";
+import { GiAnvil } from "react-icons/gi";
 
 
 
@@ -191,23 +192,22 @@ function TaskList() {
     setNewCompleted(completed);
   }
 
-  this.overflowComponent = null;
 
 
-  useEffect( () => {
-    function checkOverflow() {       
-      if(this.overflowComponent) {
-        if (check(this.overflowComponent)) { 
-            console.log("overflow"); 
-        }  else {
-          console.log("no overflow")
-        }                 
-      }
-  }     
-    if(document.getElementById(this.overflowComponent)) {
-      window.addEventListener('resize', checkOverflow);
-    }
-    window.addEventListener('resize', checkOverflow);
+    useEffect( () => {
+  //   function checkOverflow() {       
+  //     if() {
+  //       if (check(this.overflowComponent)) { 
+  //           console.log("overflow"); 
+  //       }  else {
+  //         console.log("no overflow")
+  //       }                 
+  //     }
+  // }     
+  //   if(document.getElementById(this.overflowComponent)) {
+  //     window.addEventListener('resize', checkOverflow);
+  //   }
+  //   window.addEventListener('resize', checkOverflow);
   
   
     const setWidth = () => {
@@ -234,11 +234,9 @@ function TaskList() {
       var isOverflowing = e.clientWidth < e.scrollWidth || e.clientHeight < e.scrollHeight; 
       e.style.overflow = overflowState; 
       setOverflow(isOverflowing);
-      return isOverflowing; 
     }
     else {
       setOverflow(false);
-      return false;
     }
   } 
 
@@ -267,7 +265,7 @@ function TaskList() {
                 </div> */}
                     <div id="task-container">
                     <div id='header'>
-                      <h1>lil' task</h1>
+                      <h1><span><GiAnvil size={40} id='anvil'/></span>Focus Forge</h1>
                       <NewTask onTaskAdd={handleAddTask}/>
                     </div>
                     <table>
@@ -353,6 +351,7 @@ function TaskList() {
                                                                               <div>
                                                                               <button trigger id="edit" className="btn" type="button" onClick={() => 
                                                                                 {
+                                                                                  close();
                                                                                   handleEdit(task._id);
                                                                                   closeEdit();
                                                                                   }
@@ -385,8 +384,7 @@ function TaskList() {
                                   <label>
                                     <input id="descInput" type="checkbox" />
                                     <div id="detectOverflow" className="contentDesc"><span>{task.taskDesc}</span></div>
-                                    <MdExpandMore ref={(component)=>{this.overflowComponent = component}} id={overflow ? "gap" : "hidden"}/>
-                                    {/* id={overflow ? "gap" : "hidden"}  */}
+                                    <MdExpandMore id={overflow ? "gap" : "hidden"}/>
                                   </label>
                                 </td>
                             <td className="table-cell">
