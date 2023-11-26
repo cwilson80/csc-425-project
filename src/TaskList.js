@@ -46,6 +46,7 @@ function TaskList() {
   const [newTaskDate, setNewTaskDate] = useState(new Date());
   const [newCompleted, setNewCompleted] = useState(false);
   const [newDateFormat, setDateFormat] = useState();
+  const [overflow, setOverflow] = useState(false);
 
   // definition of a task
   class taskItem {
@@ -190,22 +191,20 @@ function TaskList() {
     setNewCompleted(completed);
   }
 
-  useEffect( () => {
+  this.overflowComponent = null;
 
+
+  useEffect( () => {
     function checkOverflow() {       
-      if(document.getElementById("detectOverflow")) {
-        if (check(tableCellOverflow)) { 
+      if(this.overflowComponent) {
+        if (check(this.overflowComponent)) { 
             console.log("overflow"); 
         }  else {
           console.log("no overflow")
         }                 
       }
-  
-      else if(document.getElementById("detectOverflow")) {
-            console.log("no-overflow");   
-      }
   }     
-    if(document.getElementById("detectOverflow")) {
+    if(document.getElementById(this.overflowComponent)) {
       window.addEventListener('resize', checkOverflow);
     }
     window.addEventListener('resize', checkOverflow);
@@ -226,7 +225,6 @@ function TaskList() {
   })
 
 
-  var tableCellOverflow = document.getElementById("detectOverflow"); 
                
   function check(e) { 
     if(e != null) {
@@ -235,9 +233,11 @@ function TaskList() {
           e.style.overflow = "hidden"; 
       var isOverflowing = e.clientWidth < e.scrollWidth || e.clientHeight < e.scrollHeight; 
       e.style.overflow = overflowState; 
+      setOverflow(isOverflowing);
       return isOverflowing; 
     }
     else {
+      setOverflow(false);
       return false;
     }
   } 
@@ -364,7 +364,7 @@ function TaskList() {
                                                                   }
                                                         </Popup>
                                                         <button className='btn-modal' id={task.completed ? 'mobile-complete-icon' : 'mobile-progress-icon'} onClick={() => {handleComplete(task); close();}}>
-                                                          {task.completed ? <TbProgress size={20} id="modal-complete-icon" className='mobile-icons-style'/> : <TbCircleCheck size={16} id="modal-progress-icon" className='mobile-icons-style'/>}
+                                                          {task.completed ? <TbProgress size={16} id="modal-complete-icon" className='mobile-icons-style'/> : <TbCircleCheck size={16} id="modal-progress-icon" className='mobile-icons-style'/>}
                                                             {task.completed ? "Mark As In-Progress" : "Mark As Complete"}
                                                         </button>
                                                 </div>
@@ -384,7 +384,9 @@ function TaskList() {
                             <td id="test">
                                   <label>
                                     <input id="descInput" type="checkbox" />
-                                    <div id="detectOverflow" className="contentDesc"><MdExpandMore id='gap'/><span>{task.taskDesc}</span></div>
+                                    <div id="detectOverflow" className="contentDesc"><span>{task.taskDesc}</span></div>
+                                    <MdExpandMore ref={(component)=>{this.overflowComponent = component}} id={overflow ? "gap" : "hidden"}/>
+                                    {/* id={overflow ? "gap" : "hidden"}  */}
                                   </label>
                                 </td>
                             <td className="table-cell">
