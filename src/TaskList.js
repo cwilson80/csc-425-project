@@ -153,6 +153,7 @@ function TaskList() {
     setNewTaskDate(date);
   }
 
+
   const handleComplete = async (t) => {
     try {
       const response = await fetch(`http://localhost:3001/api/tasks/${t._id}`, {
@@ -175,9 +176,6 @@ function TaskList() {
   }
 
 
-
-
-
   /**
    * Sets the values to be used in edit
    * 
@@ -191,7 +189,6 @@ function TaskList() {
     setNewTaskDate(date);
     setNewCompleted(completed);
   }
-
 
 
     useEffect( () => {
