@@ -384,7 +384,6 @@ function TaskList() {
                                   <label>
                                     <input id="descInput" type="checkbox" />
                                     <div id="detectOverflow" className="contentDesc"><span>{task.taskDesc}</span></div>
-                                    <MdExpandMore id={overflow ? "gap" : "hidden"}/>
                                   </label>
                                 </td>
                             <td className="table-cell">
