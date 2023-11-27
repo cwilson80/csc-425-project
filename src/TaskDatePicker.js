@@ -19,6 +19,7 @@ function TaskDatePicker ({onClosingDatePicker}) {
     <DatePicker
       selected={startDate}
       onChange={(date) => setStartDate(date)}
+      minDate={new Date()}
       customInput={<DateButton />}
       onCalendarClose={handleCalendarClose}
     />

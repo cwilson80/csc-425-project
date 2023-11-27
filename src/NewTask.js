@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import './NewTask.css';
 import Popup from "reactjs-popup";
 import TaskDatePicker from './TaskDatePicker.js';
+import { BsPlusSquareFill } from "react-icons/bs";
+import { FaCalendarDays } from "react-icons/fa6";
+
 
 const NewTask = ({onTaskAdd}) => {
     // Information about the task to be added
@@ -33,7 +36,7 @@ const NewTask = ({onTaskAdd}) => {
 
     return (
         <div>
-            <Popup modal nested position="right" trigger= {<button id="newTask"> New Task </button>}>
+            <Popup modal nested position="right" trigger= {<button id="newTask"><span>New Task <BsPlusSquareFill id="plus"/></span></button>}>
                 {
                     close => (
                         <div class='modal'>
@@ -52,7 +55,7 @@ const NewTask = ({onTaskAdd}) => {
                                         onChange={(e) => setDescription(e.target.value)}
                                         maxlength="160"
                                         />
-                                    <TaskDatePicker value={dueDate} id="date" onClosingDatePicker={handleClosingDatePicker}/>
+                                    <div id="calender-container"><FaCalendarDays id="calender"/><TaskDatePicker value={dueDate} id="date" onClosingDatePicker={handleClosingDatePicker}/></div>
                                 </div>
                             <div>
                                 <button trigger className="btn" type="submit" onClick=
@@ -60,7 +63,7 @@ const NewTask = ({onTaskAdd}) => {
                                         handleAddTask();
                                         close();
                                     }}>
-                                        New Task
+                                        Add Task <span><BsPlusSquareFill /></span>
                                 </button>
                             </div>
                         </div>
