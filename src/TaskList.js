@@ -323,7 +323,7 @@ function TaskList() {
                                         close => (
                                             <div class='mobile-modal'>
                                                     <div class='mobile-content'>
-                                                        <button id="mobile-delete" className='btn-modal' onClick={() => {handleDelete(task._id)}}><FaRegTrashAlt id='delete-btn'/>Remove</button>
+                                                        <button id="mobile-delete" className='btn-modal' onClick={() => {handleDelete(task._id); close();}}><FaRegTrashAlt id='delete-btn'/>Remove</button>
                                                         
                                                         <Popup modal nested position="right" onOpen={() => initializeNewValues(task.taskName, task.taskDesc, task.dueDate, task.completed)} trigger={<button id="mobile-edit" className='btn-modal'><FaEdit id='edit-btn'/>Edit</button>}>
                                                                   {
